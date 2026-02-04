@@ -1,0 +1,569 @@
+{
+  "app": {
+    "title": "身后事清单",
+    "subtitle": "End-of-life Disaster Response Checklist"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "skip": "跳过",
+    "complete": "完成",
+    "preview": "预览",
+    "export": "导出",
+    "import": "导入",
+    "print": "打印",
+    "settings": "设置",
+    "close": "关闭",
+    "open": "打开",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "提示",
+    "yes": "是",
+    "no": "否",
+    "select": "请选择...",
+    "required": "必填"
+  },
+  "navigation": {
+    "label": "导航",
+    "menu": "导航菜单",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "expandSidebar": "展开侧边栏",
+    "collapseSidebar": "收起侧边栏",
+    "totalProgress": "总进度",
+    "allCompleted": "已完成所有项目！"
+  },
+  "welcome": {
+    "title": "身后事清单",
+    "subtitle": "End-of-life Disaster Response Checklist",
+    "description": "为您的家人准备一份完整的信息清单，帮助他们在紧急情况下获取所需的所有重要信息。",
+    "continueSession": {
+      "title": "继续上次填写",
+      "lastVisit": "上次访问",
+      "progress": "已完成",
+      "button": "继续填写"
+    },
+    "modeSelection": {
+      "title": "选择填写模式",
+      "titleWithData": "或者重新开始"
+    },
+    "guidedMode": {
+      "title": "引导模式",
+      "subtitle": "Guided Mode",
+      "description": "按照预设顺序逐步引导您填写所有信息，适合首次使用或希望系统性完成的用户。",
+      "features": {
+        "step": "按顺序逐步引导",
+        "skip": "可随时跳过当前部分",
+        "progress": "清晰的进度追踪"
+      },
+      "button": "选择引导模式"
+    },
+    "freeMode": {
+      "title": "自由模式",
+      "subtitle": "Free Mode",
+      "description": "自由选择想要填写的部分，适合已经熟悉清单内容或只想更新特定信息的用户。",
+      "features": {
+        "order": "自由选择填写顺序",
+        "locate": "快速定位特定部分",
+        "flexible": "灵活的导航体验"
+      },
+      "button": "选择自由模式"
+    },
+    "recommended": "推荐",
+    "dataPrivacy": "您的数据仅保存在本地浏览器中，不会上传到任何服务器",
+    "features": {
+      "title": "主要功能",
+      "manualSave": {
+        "title": "手动保存",
+        "description": "填写内容后点击保存按钮，确保数据安全"
+      },
+      "export": {
+        "title": "多格式导出",
+        "description": "支持导出为 JSON、Markdown 等格式"
+      },
+      "preview": {
+        "title": "预览打印",
+        "description": "预览填写内容并支持打印输出"
+      },
+      "privacy": {
+        "title": "隐私保护",
+        "description": "敏感信息加密显示，本地存储"
+      }
+    },
+    "dateFormat": {
+      "today": "今天",
+      "yesterday": "昨天",
+      "daysAgo": "{{days}} 天前"
+    }
+  },
+  "checklist": {
+    "title": "身后事清单",
+    "zenMode": "专注模式",
+    "freeMode": "自由模式",
+    "exitZenMode": "退出专注模式",
+    "completeAndPreview": "完成并预览",
+    "emptyCategory": "此分类暂无可填写的项目",
+    "completion": {
+      "title": "🎉 恭喜！您已完成所有部分！",
+      "description": "您可以预览并导出您的清单，或继续编辑任何部分。",
+      "previewButton": "预览清单"
+    },
+    "sections": {
+      "emergency-contacts": {
+        "name": "紧急联系人",
+        "description": "在社交媒体公开宣布前，先直接联系以下亲友。"
+      },
+      "tech": {
+        "name": "技术相关",
+        "description": "这部分包含帮助您访问我的邮箱和网站登录的信息，以及设备继承和技术支持联系人。"
+      },
+      "input": {
+        "name": "收入",
+        "description": "这是资金来源和存放的部分。"
+      },
+      "output": {
+        "name": "支出",
+        "description": "这是账单和需要支付的部分。所有都是自动支付，只需确保银行账户有足够的钱。"
+      },
+      "misc": {
+        "name": "杂项",
+        "description": "其他重要信息，包括财务顾问、会计师、安全问题答案和物理安全信息。"
+      }
+    },
+    "categories": {
+      "contact-list": {
+        "name": "联系人列表",
+        "description": "请按以下顺序通知这些人。在社交媒体上公开宣布之前，先直接联系以下亲友。",
+        "helpText": "添加需要通知的联系人，选择他们使用的通讯平台，并按优先级排序。"
+      },
+      "social-announcement": {
+        "name": "社交媒体公告",
+        "description": "在通知完亲友后，在社交媒体上发布公告。",
+        "helpText": "列出需要发布公告的社交媒体平台。"
+      },
+      "emails": {
+        "name": "邮箱",
+        "description": "主要使用的邮箱账户。可以通过手机或笔记本电脑登录。",
+        "helpText": "添加所有重要的邮箱账户信息。"
+      },
+      "domains-blogs": {
+        "name": "域名和博客",
+        "description": "域名和博客的管理信息。",
+        "helpText": "记录所有域名的注册商和续费信息。"
+      },
+      "password-managers": {
+        "name": "密码管理器",
+        "description": "密码管理器是访问所有其他账户的关键。",
+        "helpText": "记录密码管理器的主密码。这是最重要的信息之一。"
+      },
+      "subscriptions": {
+        "name": "订阅服务",
+        "description": "各种订阅服务的处理方式。",
+        "helpText": "记录所有订阅服务，并标注是保留、取消还是转让。"
+      },
+      "homelabs": {
+        "name": "家庭实验室",
+        "description": "⚠️ 重要：出售前必须格式化或销毁硬盘！这可能导致身份盗窃灾难。",
+        "helpText": "记录所有设备及其继承人，以及是否需要格式化。"
+      },
+      "wireless-network": {
+        "name": "无线网络",
+        "description": "无线网络设备和故障排除信息。",
+        "helpText": "记录网络设备信息和出问题时该联系谁。"
+      },
+      "network-services": {
+        "name": "网络服务",
+        "description": "网络服务故障排除步骤。",
+        "helpText": "记录网络出问题时的排查步骤。"
+      },
+      "home-automation": {
+        "name": "智能家居",
+        "description": "如果更改 WiFi 名称（例如搬家后使用 ISP 的内置 WiFi），需要重新连接这些设备。",
+        "helpText": "记录所有智能家居设备，以便在更换网络时重新连接。"
+      },
+      "social-media": {
+        "name": "社交媒体",
+        "description": "社交媒体账户的处理方式。所有账户都可以通过密码管理器和手机上的多因素认证应用登录。",
+        "helpText": "记录所有社交媒体账户及其处理方式。"
+      },
+      "2fa": {
+        "name": "双因素认证",
+        "description": "双因素认证（2FA）或多因素认证（MFA）是保护账户安全的重要措施。",
+        "helpText": "记录使用的认证应用和备用方法。"
+      },
+      "cloud-subscriptions": {
+        "name": "云服务订阅",
+        "description": "⚠️ 非常重要！这些账单可能会快速增长。",
+        "helpText": "记录所有云服务订阅，特别是那些可能产生大额账单的服务。"
+      },
+      "online-storage": {
+        "name": "在线存储",
+        "description": "在线存储和照片备份服务。这些包含我们所有的回忆，非常重要。",
+        "helpText": "记录所有在线存储服务，特别是照片备份。不要直接关闭账户，否则会丢失照片！"
+      },
+      "local-storage": {
+        "name": "本地存储",
+        "description": "本地存储设备（如 NAS）包含所有不想上传到互联网的备份和数字生活。",
+        "helpText": "⚠️ 重要：如果决定不保留，请联系专业人士帮忙擦除数据，不要直接丢弃！"
+      },
+      "websites": {
+        "name": "网站",
+        "description": "托管的网站和相关服务。",
+        "helpText": "记录所有托管的网站及其续费信息。"
+      },
+      "tech-tips": {
+        "name": "技术提示",
+        "description": "重要的技术安全提示。",
+        "helpText": "记录任何重要的技术安全提示。"
+      },
+      "bank-accounts": {
+        "name": "银行账户",
+        "description": "我们有几个不同用途的银行账户。",
+        "helpText": "记录所有银行账户信息，包括用途和 PIN 码。"
+      },
+      "virtual-currency": {
+        "name": "虚拟货币",
+        "description": "加密货币和虚拟货币账户。",
+        "helpText": "记录所有加密货币账户和钱包信息。"
+      },
+      "life-insurance": {
+        "name": "人寿保险",
+        "description": "人寿保险信息。",
+        "helpText": "记录所有人寿保险的详细信息。"
+      },
+      "residual-income": {
+        "name": "被动收入",
+        "description": "自动存入银行账户的被动收入来源。",
+        "helpText": "记录所有被动收入来源。"
+      },
+      "investments": {
+        "name": "投资",
+        "description": "投资账户信息。如果需要建议，可以致电投资公司咨询。",
+        "helpText": "记录所有投资账户。"
+      },
+      "insurance-accounts": {
+        "name": "保险账户",
+        "description": "持续的保险账户。",
+        "helpText": "记录所有保险账户及其支付方式。"
+      },
+      "credit-cards-loans": {
+        "name": "信用卡和贷款",
+        "description": "信用卡和贷款信息。",
+        "helpText": "记录所有信用卡和贷款，包括自动还款设置。"
+      },
+      "cell-phone-internet": {
+        "name": "手机和网络",
+        "description": "手机和网络服务账单。",
+        "helpText": "记录手机和网络服务的支付信息。"
+      },
+      "bill-auto-pay": {
+        "name": "自动支付账单",
+        "description": "设置为自动支付的账单。搬家时记得取消。",
+        "helpText": "记录所有自动支付的账单，以便在需要时取消或更新。"
+      },
+      "financial-advisor": {
+        "name": "财务顾问",
+        "description": "财务顾问信息。可以联系他们了解如何投资保险金。",
+        "helpText": "记录财务顾问的联系方式。"
+      },
+      "accountant": {
+        "name": "会计师",
+        "description": "会计师可以帮助处理很多事情，他们了解我们过去的财务历史。",
+        "helpText": "记录会计师的联系方式和相关建议。"
+      },
+      "security-questions": {
+        "name": "安全问题答案",
+        "description": "常见安全问题的答案。这些信息非常敏感，请妥善保管。",
+        "helpText": "记录常见安全问题的答案，以便在需要时恢复账户。"
+      },
+      "physical-security": {
+        "name": "物理安全",
+        "description": "物理安全设备的密码和组合。",
+        "helpText": "记录保险箱、药柜、武器柜等的密码。这些信息非常敏感！"
+      }
+    },
+    "options": {
+      "messaging-platforms": {
+        "wechat": "微信",
+        "qq": "QQ",
+        "weibo": "微博私信",
+        "dingtalk": "钉钉",
+        "feishu": "飞书",
+        "imessage": "iMessage",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook Messenger",
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "email": "邮件",
+        "phone": "电话",
+        "sms": "短信",
+        "other": "其他"
+      },
+      "social-platforms": {
+        "wechat": "微信",
+        "weibo": "微博",
+        "xiaohongshu": "小红书",
+        "douyin": "抖音",
+        "bilibili": "B站",
+        "zhihu": "知乎",
+        "douban": "豆瓣",
+        "twitter": "Twitter/X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube",
+        "linkedin": "LinkedIn",
+        "reddit": "Reddit",
+        "github": "GitHub",
+        "other": "其他"
+      },
+      "social-actions": {
+        "keep": "保留",
+        "close": "关闭",
+        "export-close": "导出数据后关闭",
+        "sell": "出售（如果值得）",
+        "memorial": "转为纪念账户"
+      },
+      "domain-actions": {
+        "keep": "保留并继续付费",
+        "transfer": "转让给他人",
+        "cancel": "取消/不续费"
+      },
+      "subscription-actions": {
+        "keep": "保留",
+        "cancel": "取消",
+        "transfer": "转让"
+      },
+      "device-types": {
+        "server": "服务器",
+        "computer": "电脑",
+        "laptop": "笔记本",
+        "phone": "手机",
+        "tablet": "平板",
+        "nas": "NAS 存储",
+        "other": "其他"
+      },
+      "iot-device-types": {
+        "lighting": "智能灯光",
+        "speaker": "智能音箱",
+        "streaming": "流媒体设备",
+        "vacuum": "扫地机器人",
+        "air-purifier": "空气净化器",
+        "camera": "摄像头",
+        "smart-plug": "智能插座",
+        "thermostat": "智能温控",
+        "other": "其他"
+      },
+      "cloud-actions": {
+        "keep": "保留",
+        "cancel": "取消",
+        "transfer": "转移资源",
+        "contact-support": "联系支持处理"
+      },
+      "bank-account-types": {
+        "checking": "支票账户",
+        "savings": "储蓄账户",
+        "both": "两者都有"
+      },
+      "bank-actions": {
+        "keep": "保留",
+        "close": "取出资金并关闭",
+        "transfer": "转移"
+      },
+      "service-types": {
+        "mobile": "手机",
+        "internet": "网络",
+        "bundle": "套餐"
+      },
+      "payment-types": {
+        "auto-charge": "自动扣款（收款方扣款）",
+        "recurring-bill-pay": "定期账单支付（银行发起）"
+      },
+      "security-questions": {
+        "first-pet": "第一只宠物的名字",
+        "mothers-maiden-name": "母亲的婚前姓",
+        "childhood-city": "出生城市",
+        "first-school": "小学名称",
+        "favorite-teacher": "最喜欢的老师姓名",
+        "best-friend": "最好朋友的名字",
+        "custom": "自定义问题"
+      },
+      "code-types": {
+        "pin": "PIN 码",
+        "combination": "组合锁",
+        "key-location": "钥匙位置",
+        "other": "其他"
+      },
+      "website-actions": {
+        "keep": "保留",
+        "transfer": "转让所有权",
+        "cancel": "取消"
+      }
+    },
+    "optionLists": {
+      "messaging-platforms": [
+        "wechat",
+        "qq",
+        "weibo",
+        "dingtalk",
+        "feishu",
+        "imessage",
+        "whatsapp",
+        "email",
+        "phone",
+        "sms",
+        "other"
+      ],
+      "social-platforms": [
+        "wechat",
+        "weibo",
+        "xiaohongshu",
+        "douyin",
+        "bilibili",
+        "zhihu",
+        "twitter",
+        "facebook",
+        "instagram",
+        "youtube",
+        "linkedin",
+        "github",
+        "other"
+      ]
+    }
+  },
+  "complete": {
+    "title": "🎉 恭喜您完成了清单！",
+    "description": "您已经成功完成了身后事清单的填写。这份清单将帮助您的家人在需要时获取重要信息。",
+    "summary": {
+      "title": "完成摘要",
+      "overallProgress": "整体进度",
+      "exportReminder": "请务必导出并妥善保存您的数据，以便在需要时使用。"
+    },
+    "exportSuccess": "{{format}} 文件已成功导出！",
+    "actions": {
+      "preview": "预览清单",
+      "export": "导出数据",
+      "backToEdit": "返回继续编辑"
+    },
+    "exportOptions": {
+      "json": {
+        "title": "导出为 JSON",
+        "description": "用于数据备份和迁移"
+      },
+      "markdown": {
+        "title": "导出为 Markdown",
+        "description": "可读的文档格式"
+      },
+      "html": {
+        "title": "导出为 HTML",
+        "description": "适合打印的网页格式"
+      }
+    },
+    "reminder": {
+      "title": "重要提醒",
+      "items": {
+        "backup": "请导出并妥善保存您的数据，建议保存多份备份",
+        "inform": "告知您信任的家人或朋友这份清单的存放位置",
+        "update": "定期更新清单内容，确保信息的准确性",
+        "localStorage": "您的数据仅保存在本地浏览器中，清除浏览器数据会导致数据丢失"
+      }
+    },
+    "footer": {
+      "thanks": "感谢您使用身后事清单应用",
+      "wish": "愿这份清单能为您的家人带来帮助 ❤️"
+    }
+  },
+  "preview": {
+    "title": "预览清单",
+    "documentTitle": "身后事清单",
+    "generatedAt": "生成时间",
+    "showSensitive": "显示敏感信息",
+    "hideSensitive": "隐藏敏感信息",
+    "printChecklist": "打印清单",
+    "backToEdit": "返回编辑",
+    "empty": {
+      "title": "暂无填写内容",
+      "description": "您还没有填写任何内容。请返回编辑页面开始填写您的清单。"
+    },
+    "sensitiveInfo": "敏感信息"
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "数据管理与备份",
+    "import": {
+      "title": "导入数据",
+      "description": "从 JSON 备份文件恢复您的数据。导入将覆盖当前所有数据。",
+      "button": "选择 JSON 文件",
+      "importing": "导入中...",
+      "success": "数据导入成功！",
+      "error": "导入失败：文件格式无效或已损坏",
+      "readError": "读取文件失败，请重试"
+    },
+    "clear": {
+      "title": "清除所有数据",
+      "description": "永久删除所有已填写的数据和进度。此操作无法撤销。",
+      "status": "当前状态",
+      "hasData": "有已保存的数据",
+      "completed": "完成",
+      "noData": "暂无数据",
+      "button": "清除所有数据",
+      "confirm": {
+        "title": "确认清除所有数据？",
+        "subtitle": "此操作无法撤销",
+        "warning": "警告：",
+        "warningText": "这将永久删除以下内容：",
+        "items": {
+          "data": "所有已填写的清单数据",
+          "progress": "填写进度和状态",
+          "local": "所有本地保存的信息"
+        },
+        "inputLabel": "请输入",
+        "inputPlaceholder": "确认删除",
+        "inputRequired": "以继续：",
+        "cancelButton": "取消",
+        "confirmButton": "确认清除"
+      }
+    },
+    "language": {
+      "title": "语言设置",
+      "description": "选择您偏好的界面语言",
+      "label": "界面语言"
+    },
+    "dataPrivacy": "您的数据仅保存在本地浏览器中"
+  },
+  "saveStatus": {
+    "saved": "已保存",
+    "saving": "保存中...",
+    "error": "保存失败",
+    "unsaved": "未保存",
+    "justNow": "刚刚",
+    "secondsAgo": "{{seconds}}秒前",
+    "minutesAgo": "{{minutes}}分钟前",
+    "hoursAgo": "{{hours}}小时前",
+    "daysAgo": "{{days}}天前",
+    "saveButton": "保存",
+    "saveButtonWithCount": "保存 ({{count}})",
+    "noChanges": "无更改需要保存",
+    "pendingChanges": "有 {{count}} 项未保存",
+    "unsavedIndicator": "未保存的更改"
+  },
+  "form": {
+    "showContent": "显示内容",
+    "hideContent": "隐藏内容",
+    "deleteItem": "删除 {{label}}",
+    "addItem": "添加{{label}}",
+    "itemCount": "第 {{current}} 项，共 {{total}} 项"
+  },
+  "zenMode": {
+    "exit": "退出专注模式",
+    "progress": "{{current}} / {{total}}"
+  }
+}

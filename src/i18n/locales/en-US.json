@@ -1,0 +1,567 @@
+{
+  "app": {
+    "title": "EOL Checklist",
+    "subtitle": "End-of-life Disaster Response Checklist"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip",
+    "complete": "Complete",
+    "preview": "Preview",
+    "export": "Export",
+    "import": "Import",
+    "print": "Print",
+    "settings": "Settings",
+    "close": "Close",
+    "open": "Open",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "yes": "Yes",
+    "no": "No",
+    "select": "Please select...",
+    "required": "Required"
+  },
+  "navigation": {
+    "label": "Navigation",
+    "menu": "Navigation Menu",
+    "openMenu": "Open Menu",
+    "closeMenu": "Close Menu",
+    "expandSidebar": "Expand Sidebar",
+    "collapseSidebar": "Collapse Sidebar",
+    "totalProgress": "Total Progress",
+    "allCompleted": "All items completed!"
+  },
+  "welcome": {
+    "title": "EOL Checklist",
+    "subtitle": "End-of-life Disaster Response Checklist",
+    "description": "Prepare a complete information checklist for your family to help them access all important information in case of emergency.",
+    "continueSession": {
+      "title": "Continue from Last Session",
+      "lastVisit": "Last visited",
+      "progress": "Completed",
+      "button": "Continue"
+    },
+    "modeSelection": {
+      "title": "Select Mode",
+      "titleWithData": "Or Start Fresh"
+    },
+    "guidedMode": {
+      "title": "Guided Mode",
+      "subtitle": "Step by Step",
+      "description": "Follow a preset order to fill in all information step by step. Ideal for first-time users or those who want to complete systematically.",
+      "features": {
+        "step": "Step-by-step guidance",
+        "skip": "Skip sections anytime",
+        "progress": "Clear progress tracking"
+      },
+      "button": "Select Guided Mode"
+    },
+    "freeMode": {
+      "title": "Free Mode",
+      "subtitle": "Your Choice",
+      "description": "Freely choose which sections to fill in. Ideal for users familiar with the checklist or those who only want to update specific information.",
+      "features": {
+        "order": "Choose your own order",
+        "locate": "Quick section navigation",
+        "flexible": "Flexible experience"
+      },
+      "button": "Select Free Mode"
+    },
+    "recommended": "Recommended",
+    "dataPrivacy": "Your data is stored locally in your browser only and will not be uploaded to any server",
+    "features": {
+      "title": "Key Features",
+      "manualSave": {
+        "title": "Manual Save",
+        "description": "Click save button to persist your data safely"
+      },
+      "export": {
+        "title": "Multi-format Export",
+        "description": "Export to JSON, Markdown and more"
+      },
+      "preview": {
+        "title": "Preview & Print",
+        "description": "Preview content and print output"
+      },
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "Sensitive info encrypted, stored locally"
+      }
+    },
+    "dateFormat": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "daysAgo": "{{days}} days ago"
+    }
+  },
+  "checklist": {
+    "title": "EOL Checklist",
+    "zenMode": "Focus Mode",
+    "freeMode": "Free Mode",
+    "exitZenMode": "Exit Focus Mode",
+    "completeAndPreview": "Complete & Preview",
+    "emptyCategory": "No items to fill in this category",
+    "completion": {
+      "title": "🎉 Congratulations! You've completed all sections!",
+      "description": "You can preview and export your checklist, or continue editing any section.",
+      "previewButton": "Preview Checklist"
+    },
+    "sections": {
+      "emergency-contacts": {
+        "name": "Emergency Contacts",
+        "description": "Contact the following friends and family directly before announcing on social media."
+      },
+      "tech": {
+        "name": "Tech",
+        "description": "This section covers topics that will help you access my emails and website logins, plus device inheritance and tech support contacts."
+      },
+      "input": {
+        "name": "Input (Income)",
+        "description": "This is the section where money lands or exists."
+      },
+      "output": {
+        "name": "Output (Expenses)",
+        "description": "This is the section with bills and things you gotta pay. Everything is on auto-pay so no stress."
+      },
+      "misc": {
+        "name": "Miscellaneous",
+        "description": "Other important information including financial advisors, accountants, security questions, and physical security."
+      }
+    },
+    "categories": {
+      "contact-list": {
+        "name": "Contact List",
+        "description": "Notify these people in the following order before announcing on social media.",
+        "helpText": "Add contacts to notify, select their communication platform, and prioritize the order."
+      },
+      "social-announcement": {
+        "name": "Social Media Announcement",
+        "description": "After notifying close contacts, make announcements on social media.",
+        "helpText": "List social media platforms where announcements should be made."
+      },
+      "emails": {
+        "name": "Emails",
+        "description": "Primary email accounts. Can be accessed via phone or laptop.",
+        "helpText": "Add all important email account information."
+      },
+      "domains-blogs": {
+        "name": "Domains and Blogs",
+        "description": "Domain and blog management information.",
+        "helpText": "Record all domain registrars and renewal information."
+      },
+      "password-managers": {
+        "name": "Password Managers",
+        "description": "Password managers are the key to accessing all other accounts.",
+        "helpText": "Record master password information. This is one of the most important pieces of information."
+      },
+      "subscriptions": {
+        "name": "Subscriptions",
+        "description": "How to handle various subscription services.",
+        "helpText": "Record all subscriptions and mark whether to keep, cancel, or transfer."
+      },
+      "homelabs": {
+        "name": "Homelabs",
+        "description": "⚠️ Important: Format or destroy drives before selling! This could lead to identity theft.",
+        "helpText": "Record all devices and their inheritors, and whether they need formatting."
+      },
+      "wireless-network": {
+        "name": "Wireless Network",
+        "description": "Wireless network devices and troubleshooting information.",
+        "helpText": "Record network device info and who to contact when things break."
+      },
+      "network-services": {
+        "name": "Network Services",
+        "description": "Network service troubleshooting steps.",
+        "helpText": "Record troubleshooting steps for network issues."
+      },
+      "home-automation": {
+        "name": "Home Automation/IoT",
+        "description": "If changing WiFi name (e.g., moving to ISP's built-in WiFi), these devices need reconnecting.",
+        "helpText": "Record all smart home devices for reconnection when changing networks."
+      },
+      "social-media": {
+        "name": "Social Media",
+        "description": "How to handle social media accounts. All can be accessed via password manager and phone's MFA app.",
+        "helpText": "Record all social media accounts and how to handle them."
+      },
+      "2fa": {
+        "name": "Two-Factor Authentication",
+        "description": "Two-factor authentication (2FA) or multi-factor authentication (MFA) is important for account security.",
+        "helpText": "Record authentication apps and backup methods."
+      },
+      "cloud-subscriptions": {
+        "name": "Cloud Subscriptions",
+        "description": "⚠️ Very important! These bills can grow quickly.",
+        "helpText": "Record all cloud subscriptions, especially those that may generate large bills."
+      },
+      "online-storage": {
+        "name": "Online Storage",
+        "description": "Online storage and photo backup services. These contain all our memories - very important.",
+        "helpText": "Record all online storage services, especially photo backups. Don't close accounts or you'll lose photos!"
+      },
+      "local-storage": {
+        "name": "Local Storage",
+        "description": "Local storage devices (like NAS) contain backups and digital life you don't want on the internet.",
+        "helpText": "⚠️ Important: If not keeping, have a professional wipe the data. Don't just throw it away!"
+      },
+      "websites": {
+        "name": "Websites",
+        "description": "Hosted websites and related services.",
+        "helpText": "Record all hosted websites and their renewal information."
+      },
+      "tech-tips": {
+        "name": "Tech Tips",
+        "description": "Important tech security tips.",
+        "helpText": "Record any important tech security tips."
+      },
+      "bank-accounts": {
+        "name": "Bank Accounts",
+        "description": "We have several bank accounts for different purposes.",
+        "helpText": "Record all bank account information including purpose and PIN."
+      },
+      "virtual-currency": {
+        "name": "Virtual Currency",
+        "description": "Cryptocurrency and virtual currency accounts.",
+        "helpText": "Record all crypto accounts and wallet information."
+      },
+      "life-insurance": {
+        "name": "Life Insurance",
+        "description": "Life insurance information.",
+        "helpText": "Record all life insurance details."
+      },
+      "residual-income": {
+        "name": "Residual Income",
+        "description": "Passive income sources that auto-deposit to bank accounts.",
+        "helpText": "Record all passive income sources."
+      },
+      "investments": {
+        "name": "Investments",
+        "description": "Investment account information. Call investment companies for advice if needed.",
+        "helpText": "Record all investment accounts."
+      },
+      "insurance-accounts": {
+        "name": "Insurance Accounts",
+        "description": "Ongoing insurance accounts.",
+        "helpText": "Record all insurance accounts and payment methods."
+      },
+      "credit-cards-loans": {
+        "name": "Credit Cards and Loans",
+        "description": "Credit card and loan information.",
+        "helpText": "Record all credit cards and loans, including auto-pay settings."
+      },
+      "cell-phone-internet": {
+        "name": "Cell Phone & Internet",
+        "description": "Cell phone and internet service bills.",
+        "helpText": "Record payment information for phone and internet services."
+      },
+      "bill-auto-pay": {
+        "name": "Bill Auto Pay",
+        "description": "Bills set up for automatic payment. Remember to cancel when moving.",
+        "helpText": "Record all auto-pay bills so they can be cancelled or updated when needed."
+      },
+      "financial-advisor": {
+        "name": "Financial Advisor",
+        "description": "Financial advisor information. Contact them to learn how to invest insurance payouts.",
+        "helpText": "Record financial advisor contact information."
+      },
+      "accountant": {
+        "name": "Accountant",
+        "description": "Accountant can help with many things. They know our financial history.",
+        "helpText": "Record accountant contact information and related advice."
+      },
+      "security-questions": {
+        "name": "Security Question Answers",
+        "description": "Answers to common security questions. This information is very sensitive - keep it safe.",
+        "helpText": "Record answers to common security questions for account recovery."
+      },
+      "physical-security": {
+        "name": "Physical Security",
+        "description": "Physical security device passwords and combinations.",
+        "helpText": "Record passwords for safes, medicine cabinets, gun safes, etc. Very sensitive!"
+      }
+    },
+    "options": {
+      "messaging-platforms": {
+        "imessage": "iMessage",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook Messenger",
+        "telegram": "Telegram",
+        "signal": "Signal",
+        "discord": "Discord",
+        "slack": "Slack",
+        "google-chat": "Google Chat",
+        "email": "Email",
+        "phone": "Phone Call",
+        "sms": "SMS/Text",
+        "other": "Other"
+      },
+      "social-platforms": {
+        "twitter": "Twitter/X",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "youtube": "YouTube",
+        "reddit": "Reddit",
+        "threads": "Threads",
+        "bluesky": "Bluesky",
+        "mastodon": "Mastodon",
+        "pinterest": "Pinterest",
+        "snapchat": "Snapchat",
+        "github": "GitHub",
+        "other": "Other"
+      },
+      "social-actions": {
+        "keep": "Keep Active",
+        "close": "Close/Delete",
+        "export-close": "Export Data & Close",
+        "sell": "Sell (if valuable)",
+        "memorial": "Convert to Memorial"
+      },
+      "domain-actions": {
+        "keep": "Keep & Continue Paying",
+        "transfer": "Transfer to Someone",
+        "cancel": "Cancel / Don't Renew"
+      },
+      "subscription-actions": {
+        "keep": "Keep",
+        "cancel": "Cancel",
+        "transfer": "Transfer"
+      },
+      "device-types": {
+        "server": "Server",
+        "computer": "Desktop Computer",
+        "laptop": "Laptop",
+        "phone": "Phone",
+        "tablet": "Tablet",
+        "nas": "NAS Storage",
+        "other": "Other"
+      },
+      "iot-device-types": {
+        "lighting": "Smart Lighting",
+        "speaker": "Smart Speaker",
+        "streaming": "Streaming Device",
+        "vacuum": "Robot Vacuum",
+        "air-purifier": "Air Purifier",
+        "camera": "Security Camera",
+        "smart-plug": "Smart Plug",
+        "thermostat": "Smart Thermostat",
+        "other": "Other"
+      },
+      "cloud-actions": {
+        "keep": "Keep",
+        "cancel": "Cancel",
+        "transfer": "Transfer Resources",
+        "contact-support": "Contact Support"
+      },
+      "bank-account-types": {
+        "checking": "Checking Account",
+        "savings": "Savings Account",
+        "both": "Both"
+      },
+      "bank-actions": {
+        "keep": "Keep",
+        "close": "Withdraw & Close",
+        "transfer": "Transfer"
+      },
+      "service-types": {
+        "mobile": "Mobile",
+        "internet": "Internet",
+        "bundle": "Bundle"
+      },
+      "payment-types": {
+        "auto-charge": "Auto-charge (Payee Initiated)",
+        "recurring-bill-pay": "Recurring Bill Pay (Bank Initiated)"
+      },
+      "security-questions": {
+        "first-pet": "What was your first pet's name?",
+        "fathers-middle-name": "What is your father's middle name?",
+        "mothers-maiden-name": "What is your mother's maiden name?",
+        "childhood-street": "What street did you grow up on?",
+        "first-car": "What was your first car?",
+        "first-school": "What was the name of your first school?",
+        "childhood-nickname": "What was your childhood nickname?",
+        "custom": "Custom Question"
+      },
+      "code-types": {
+        "pin": "PIN Code",
+        "combination": "Combination Lock",
+        "key-location": "Key Location",
+        "other": "Other"
+      },
+      "website-actions": {
+        "keep": "Keep",
+        "transfer": "Transfer Ownership",
+        "cancel": "Cancel"
+      }
+    },
+    "optionLists": {
+      "messaging-platforms": [
+        "imessage",
+        "whatsapp",
+        "facebook",
+        "telegram",
+        "signal",
+        "discord",
+        "slack",
+        "email",
+        "phone",
+        "sms",
+        "other"
+      ],
+      "social-platforms": [
+        "twitter",
+        "facebook",
+        "instagram",
+        "linkedin",
+        "tiktok",
+        "youtube",
+        "reddit",
+        "threads",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "snapchat",
+        "github",
+        "other"
+      ]
+    }
+  },
+  "complete": {
+    "title": "🎉 Congratulations on completing the checklist!",
+    "description": "You have successfully completed the EOL checklist. This checklist will help your family access important information when needed.",
+    "summary": {
+      "title": "Completion Summary",
+      "overallProgress": "Overall Progress",
+      "exportReminder": "Please export and safely store your data for future use."
+    },
+    "exportSuccess": "{{format}} file exported successfully!",
+    "actions": {
+      "preview": "Preview Checklist",
+      "export": "Export Data",
+      "backToEdit": "Back to Edit"
+    },
+    "exportOptions": {
+      "json": {
+        "title": "Export as JSON",
+        "description": "For data backup and migration"
+      },
+      "markdown": {
+        "title": "Export as Markdown",
+        "description": "Readable document format"
+      },
+      "html": {
+        "title": "Export as HTML",
+        "description": "Print-friendly web format"
+      }
+    },
+    "reminder": {
+      "title": "Important Reminder",
+      "items": {
+        "backup": "Please export and safely store your data, multiple backups recommended",
+        "inform": "Inform trusted family members or friends about the location of this checklist",
+        "update": "Regularly update the checklist to ensure accuracy",
+        "localStorage": "Your data is stored locally in your browser only, clearing browser data will result in data loss"
+      }
+    },
+    "footer": {
+      "thanks": "Thank you for using the EOL Checklist app",
+      "wish": "May this checklist help your family ❤️"
+    }
+  },
+  "preview": {
+    "title": "Preview Checklist",
+    "documentTitle": "EOL Checklist",
+    "generatedAt": "Generated at",
+    "showSensitive": "Show Sensitive Info",
+    "hideSensitive": "Hide Sensitive Info",
+    "printChecklist": "Print Checklist",
+    "backToEdit": "Back to Edit",
+    "empty": {
+      "title": "No Content Yet",
+      "description": "You haven't filled in any content yet. Please return to the edit page to start filling in your checklist."
+    },
+    "sensitiveInfo": "Sensitive Info"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Data Management & Backup",
+    "import": {
+      "title": "Import Data",
+      "description": "Restore your data from a JSON backup file. Import will overwrite all current data.",
+      "button": "Select JSON File",
+      "importing": "Importing...",
+      "success": "Data imported successfully!",
+      "error": "Import failed: Invalid or corrupted file format",
+      "readError": "Failed to read file, please try again"
+    },
+    "clear": {
+      "title": "Clear All Data",
+      "description": "Permanently delete all filled data and progress. This action cannot be undone.",
+      "status": "Current Status",
+      "hasData": "Has saved data",
+      "completed": "completed",
+      "noData": "No data",
+      "button": "Clear All Data",
+      "confirm": {
+        "title": "Confirm Clear All Data?",
+        "subtitle": "This action cannot be undone",
+        "warning": "Warning:",
+        "warningText": "This will permanently delete:",
+        "items": {
+          "data": "All filled checklist data",
+          "progress": "Progress and status",
+          "local": "All locally saved information"
+        },
+        "inputLabel": "Please type",
+        "inputPlaceholder": "DELETE",
+        "inputRequired": "to continue:",
+        "cancelButton": "Cancel",
+        "confirmButton": "Confirm Clear"
+      }
+    },
+    "language": {
+      "title": "Language Settings",
+      "description": "Select your preferred interface language",
+      "label": "Interface Language"
+    },
+    "dataPrivacy": "Your data is stored locally in your browser only"
+  },
+  "saveStatus": {
+    "saved": "Saved",
+    "saving": "Saving...",
+    "error": "Save Failed",
+    "unsaved": "Unsaved",
+    "justNow": "Just now",
+    "secondsAgo": "{{seconds}}s ago",
+    "minutesAgo": "{{minutes}}m ago",
+    "hoursAgo": "{{hours}}h ago",
+    "daysAgo": "{{days}}d ago",
+    "saveButton": "Save",
+    "saveButtonWithCount": "Save ({{count}})",
+    "noChanges": "No changes to save",
+    "pendingChanges": "{{count}} pending changes",
+    "unsavedIndicator": "Unsaved changes"
+  },
+  "form": {
+    "showContent": "Show Content",
+    "hideContent": "Hide Content",
+    "deleteItem": "Delete {{label}}",
+    "addItem": "Add {{label}}",
+    "itemCount": "Item {{current}} of {{total}}"
+  },
+  "zenMode": {
+    "exit": "Exit Focus Mode",
+    "progress": "{{current}} / {{total}}"
+  }
+}
