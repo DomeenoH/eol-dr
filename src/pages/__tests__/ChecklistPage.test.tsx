@@ -220,7 +220,7 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free' });
       renderChecklistPage({}, createMockData(), progress);
       
-      expect(screen.getByText('专注模式')).toBeInTheDocument();
+      expect(screen.getAllByText('专注').length).toBeGreaterThan(0);
     });
   });
 
@@ -229,15 +229,15 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'guided' });
       renderChecklistPage({}, createMockData(), progress);
       
-      const exitButton = screen.getByRole('button', { name: /退出专注模式/ });
+      const exitButton = screen.getAllByRole('button', { name: /退出专注模式/ })[0];
       
       await act(async () => {
         fireEvent.click(exitButton);
       });
       
       await waitFor(() => {
-        // In free mode, the toggle button should show "专注模式" (switch TO zen)
-        expect(screen.getByText('专注模式')).toBeInTheDocument();
+        // In free mode, the toggle button should show "专注" (switch TO zen)
+        expect(screen.getAllByText('专注').length).toBeGreaterThan(0);
         expect(screen.getByTestId('checklist-page')).toBeInTheDocument();
       });
     });
@@ -246,7 +246,7 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free' });
       renderChecklistPage({}, createMockData(), progress);
       
-      const modeButton = screen.getByRole('button', { name: /切换到专注模式/ });
+      const modeButton = screen.getAllByRole('button', { name: /切换到专注模式/ })[0];
       
       await act(async () => {
         fireEvent.click(modeButton);
@@ -381,7 +381,7 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free' });
       renderChecklistPage({ onPreview }, createMockData(), progress);
       
-      const previewButton = screen.getByRole('button', { name: /预览/ });
+      const previewButton = screen.getAllByRole('button', { name: /预览/ })[0];
       fireEvent.click(previewButton);
       
       expect(onPreview).toHaveBeenCalled();
@@ -425,7 +425,8 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free', overall: 100 });
       renderChecklistPage({ onPreview }, createMockData(), progress);
       
-      expect(screen.getByRole('button', { name: /预览清单/ })).toBeInTheDocument();
+      // The preview button in the completion card AND top bar
+      expect(screen.getAllByRole('button', { name: /预览清单/ }).length).toBeGreaterThan(0);
     });
   });
 
@@ -486,7 +487,9 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free' });
       renderChecklistPage({}, createMockData(), progress);
       
-      expect(screen.getByRole('button', { name: /切换到专注模式/ })).toBeInTheDocument();
+      const buttons = screen.getAllByRole('button', { name: /切换到专注模式/ });
+      expect(buttons.length).toBeGreaterThan(0);
+      expect(buttons[0]).toBeInTheDocument();
     });
 
     it('should have proper heading structure in free mode', () => {

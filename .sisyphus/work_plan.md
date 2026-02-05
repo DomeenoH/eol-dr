@@ -40,9 +40,14 @@ created_at: 2026-02-05T02:00:00+08:00
 - [x] task-009: 重构 Navigation 导航组件
 - [x] task-010: 重构 WelcomePage 欢迎页
 - [/] task-011: 重构 ChecklistPage 主页面
-  - 集成 Layout
-  - 集成 Navigation
-  - 应用 DesignSystem
+  - [ ] **[CRITICAL] Free Mode 顶部栏重设计 (UI/UX Pro Max)**
+    - [ ] 分析 Layout 与 Page 的 Header 冲突
+    - [ ] 设计新的悬浮玻璃态顶部栏
+    - [ ] 移除重复的 Theme/Language 开关
+    - [ ] 优化"专注模式"与"预览"按钮样式
+  - [ ] 集成 Layout
+  - [ ] 集成 Navigation
+  - [ ] 应用 DesignSystem
 - [ ] task-012: 重构表单组件
 - [ ] task-013: 重构卡片组件
 - [ ] task-014: 重构 ZenModeView

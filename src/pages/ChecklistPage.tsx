@@ -17,7 +17,7 @@ import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import { Typography, GlassCard, PageContainer, Section as PageSection } from '../components/DesignSystem';
 import type { Section, Category } from '../types/checklist-structure';
 import type { CategoryData } from '../types/checklist-data';
-import type { AppMode } from '../types/progress';
+
 
 export interface ChecklistPageProps {
   onBack?: () => void;
@@ -26,32 +26,7 @@ export interface ChecklistPageProps {
   className?: string;
 }
 
-const ModeToggle: React.FC<{ mode: AppMode; onToggle: () => void }> = ({ mode, onToggle }) => (
-      <button
-    type="button"
-    onClick={onToggle}
-    aria-label={mode === 'guided' ? "退出专注模式" : "切换到专注模式"}
-    className={`
-      inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200
-      ${mode === 'guided' 
-        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500/30' 
-        : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:bg-[var(--bg-secondary)]'
-      }
-    `}
-  >
-    {mode === 'guided' ? (
-      <>
-        <FreeModeIcon className="w-4 h-4" />
-        <span className="hidden sm:inline">自由模式</span>
-      </>
-    ) : (
-      <>
-        <ZenModeIcon className="w-4 h-4" />
-        <span className="hidden sm:inline">专注模式</span>
-      </>
-    )}
-  </button>
-);
+
 
 export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   onBack,
@@ -270,43 +245,76 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
 
   // Free Mode - Show all sections and categories
   const headerContent = (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center gap-4">
+    <div className="flex items-center justify-between w-full h-full">
+      {/* Left: Branding & Navigation */}
+      <div className="flex items-center gap-3">
         {onBack && (
           <button
             type="button"
             onClick={onBack}
-            className="p-2 -ml-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+            className="p-2 -ml-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-full transition-all duration-200"
             aria-label="返回首页"
           >
             <BackIcon className="w-5 h-5" />
           </button>
         )}
-        <Typography.h2 className="!text-lg !text-white">身后事清单</Typography.h2>
+        <div className="flex flex-col">
+          <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent transform translate-y-0.5">
+            身后事清单
+          </h1>
+          <span className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase">Legacy Checklist</span>
+        </div>
       </div>
       
-      <div className="flex items-center gap-3">
-        <ThemeSwitcher />
-        <LanguageSwitcher className="hidden sm:block" />
-        <SaveStatusBadge status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} className="hidden sm:flex" />
-        <SaveStatus status={saveStatus} lastSaved={lastSaved} compact className="sm:hidden" />
-        <SaveButton 
-          onSave={saveAll} 
-          pendingCount={pendingCount} 
-          status={saveStatus}
-          className="hidden sm:flex"
-        />
-        <ModeToggle mode={mode} onToggle={handleModeToggle} />
-        {onPreview && (
+      {/* Right: Actions & Tools */}
+      <div className="flex items-center gap-2 sm:gap-4">
+        {/* Save Status (Always visible) */}
+        <div className="hidden sm:block">
+           <SaveStatusBadge status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} />
+        </div>
+
+        <div className="h-6 w-px bg-[var(--border-subtle)] hidden sm:block" />
+
+        {/* Primary Actions Group */}
+        <div className="flex items-center gap-2">
+          {onPreview && (
+            <button
+              type="button"
+              onClick={onPreview}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-[var(--primary-600)] bg-[var(--primary-50)] hover:bg-[var(--primary-100)] border border-[var(--primary-200)] rounded-lg transition-all duration-200 hover:-translate-y-0.5"
+              title="预览清单"
+              aria-label="预览清单"
+            >
+              <PreviewIcon className="w-4 h-4" />
+              <span>预览</span>
+            </button>
+          )}
+          
           <button
             type="button"
-            onClick={onPreview}
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 shadow-lg shadow-blue-900/40 transition-all duration-200 hover:-translate-y-0.5"
+            onClick={handleModeToggle}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-lg transition-all duration-200"
+            title="切换到专注模式"
+            aria-label="切换到专注模式"
           >
-            <PreviewIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">预览</span>
+            <ZenModeIcon className="w-4 h-4" />
+            <span>专注</span>
           </button>
-        )}
+        </div>
+
+        {/* Settings Group (Collapsed on mobile) */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          <ThemeSwitcher />
+          <LanguageSwitcher className="hidden sm:block" />
+          
+          {/* Mobile Only Actions Menu Trigger could go here if needed, but keeping it simple for now */}
+          <SaveButton 
+            onSave={saveAll} 
+            pendingCount={pendingCount} 
+            status={saveStatus}
+            className="sm:hidden"
+          />
+        </div>
       </div>
     </div>
   );
@@ -326,15 +334,30 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
     <div className="flex items-center justify-between">
       <SaveStatus status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} />
       <div className="flex items-center gap-3">
-        {/* 移动端保存按钮 */}
-        {hasPendingChanges && (
-          <SaveButton 
-            onSave={saveAll} 
-            pendingCount={pendingCount} 
-            status={saveStatus}
-            className="sm:hidden"
-          />
-        )}
+        {/* 移动端操作栏 */}
+        <div className="flex sm:hidden items-center gap-2">
+           {onPreview && (
+            <button
+              type="button"
+              onClick={onPreview}
+              className="p-2 text-[var(--primary-600)] bg-[var(--primary-50)] rounded-lg"
+              title="预览"
+              aria-label="预览清单"
+            >
+              <PreviewIcon className="w-5 h-5" />
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleModeToggle}
+             className="p-2 text-[var(--text-secondary)] bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg"
+             title="专注模式"
+             aria-label="切换到专注模式"
+          >
+            <ZenModeIcon className="w-5 h-5" />
+          </button>
+        </div>
+
         {isAllComplete && onComplete && (
           <button
             type="button"
@@ -350,7 +373,13 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   );
   
   return (
-    <Layout header={headerContent} sidebar={sidebarContent} footer={footerContent} className={className}>
+    <Layout 
+      header={headerContent} 
+      sidebar={sidebarContent} 
+      footer={footerContent} 
+      className={className}
+      showDefaultActions={false}
+    >
       <PageContainer data-testid="checklist-page" className="md:pr-4">
         {/* Render ALL sections and categories */}
         {structure.sections.map(section => (
@@ -470,12 +499,6 @@ const BackIcon: React.FC<{ className?: string }> = ({ className }) => (
 const ZenModeIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-);
-
-const FreeModeIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
   </svg>
 );
 

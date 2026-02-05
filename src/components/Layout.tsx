@@ -8,7 +8,8 @@ export interface LayoutProps {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   showSidebar?: boolean;
-  className?: string;
+  showDefaultActions?: boolean;
+  className?: string; // Add className back to interface
 }
 
 const TOUCH_TARGET_SIZE = 'min-h-[44px] min-w-[44px]';
@@ -20,6 +21,7 @@ export const Layout: React.FC<LayoutProps> = ({
   footer,
   showSidebar = true,
   className = '',
+  showDefaultActions = true,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -80,11 +82,13 @@ export const Layout: React.FC<LayoutProps> = ({
 
           <div className="flex-1 flex items-center justify-between">
             {header || <h1 className="text-lg font-semibold text-[var(--text-primary)] tracking-wide">EOL Checklist</h1>}
-            <div className="flex items-center gap-3">
-              <ThemeSwitcher />
-              <div className="h-4 w-px bg-[var(--border-subtle)]" />
-              <LanguageSwitcher />
-            </div>
+            {showDefaultActions && (
+              <div className="flex items-center gap-3">
+                <ThemeSwitcher />
+                <div className="h-4 w-px bg-[var(--border-subtle)]" />
+                <LanguageSwitcher />
+              </div>
+            )}
           </div>
         </div>
       </header>

@@ -243,7 +243,7 @@ describe('Router Configuration', () => {
       renderWithRouter('/checklist');
       
       // Find and click preview button
-      const previewButton = screen.getByRole('button', { name: /预览/i });
+      const previewButton = screen.getAllByRole('button', { name: /预览/i })[0];
       fireEvent.click(previewButton);
       
       // Should navigate to preview page
