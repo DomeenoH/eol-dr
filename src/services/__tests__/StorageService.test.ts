@@ -166,9 +166,7 @@ describe('StorageService', () => {
     
     it('should throw StorageError with QUOTA_EXCEEDED when storage is full', () => {
       // First let isAvailable pass, then fail on actual save
-      let callCount = 0;
       mockLocalStorage.setItem.mockImplementation((key: string) => {
-        callCount++;
         // Let the first call (isAvailable test) pass
         if (key === '__storage_test__') {
           return;

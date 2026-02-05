@@ -83,6 +83,7 @@ function createWrapper(props: {
       <ChecklistProvider
         initialData={props.initialData}
         initialProgress={props.initialProgress}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         storageServiceOverride={props.storageServiceOverride as any}
       >
         {children}

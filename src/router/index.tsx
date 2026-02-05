@@ -15,7 +15,7 @@
 
 import React, { useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { ChecklistProvider } from '../context/ChecklistContext';
+import { ChecklistProvider } from '../context/ChecklistProvider';
 import {
   WelcomePage,
   ChecklistPage,

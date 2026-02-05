@@ -9,7 +9,7 @@
  */
 
 import { AppRouter } from './router';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeProvider';
 
 /**
  * App Component

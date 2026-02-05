@@ -16,6 +16,9 @@ import type { Category, ItemDefinition } from '../types/checklist-structure';
 import type { CategoryData, ItemValue } from '../types/checklist-data';
 import { ItemForm } from './ItemForm';
 import { RepeatableItemList } from './RepeatableItemList';
+import { GlassCard } from './design-system/Card';
+import { Typography } from './design-system/Typography';
+import { getItemValue } from '../utils/checklist-utils';
 
 /**
  * CategoryForm component props
@@ -55,28 +58,7 @@ const InfoIcon: React.FC<{ className?: string }> = ({ className = '' }) => (
   </svg>
 );
 
-/**
- * Get the value for an item from category data
- */
-const getItemValue = (
-  data: CategoryData,
-  itemId: string,
-  isRepeatable: boolean
-): ItemValue | ItemValue[] => {
-  const value = data.items[itemId];
-  
-  if (isRepeatable) {
-    // For repeatable items, ensure we return an array
-    if (Array.isArray(value)) {
-      return value;
-    }
-    // If no value exists, return empty array
-    return [];
-  }
-  
-  // For non-repeatable items, return the value or empty string
-  return value ?? '';
-};
+
 
 /**
  * CategoryForm component
@@ -146,8 +128,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   };
 
   return (
-    <div
-      className={`bg-[var(--bg-card)] backdrop-blur-sm rounded-xl shadow-lg border border-[var(--border-card)] overflow-hidden ${className}`}
+    <GlassCard
+      className={`!p-0 !overflow-hidden ${className}`}
+      hoverEffect={false}
       data-testid="category-form"
       data-category-id={category.id}
       role="region"
@@ -155,13 +138,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     >
       {/* Category Header */}
       <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 px-6 py-4 border-b border-[var(--border-subtle)]">
-        <h2
+        <Typography.h2
           id={categoryId}
-          className="text-lg font-semibold text-[var(--text-primary)]"
+          className="text-lg font-semibold !text-[var(--text-primary)]"
           data-testid="category-name"
         >
           {category.name}
-        </h2>
+        </Typography.h2>
         
         {/* Description - Validates: Requirements 8.1 */}
         {displayDescription && (
@@ -203,7 +186,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           category.items.map(renderItem)
         )}
       </div>
-    </div>
+    </GlassCard>
   );
 };
 

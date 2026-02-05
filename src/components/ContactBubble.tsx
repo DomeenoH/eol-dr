@@ -16,7 +16,8 @@
 
 import React, { useState, useCallback } from 'react';
 import type { PlatformType, ContactData } from '../types/platform';
-import { platformBranding } from './PlatformCard';
+import { platformBranding } from '../utils/platform-utils';
+import { getInitials, contactPlatforms } from '../utils/contact-utils';
 
 /**
  * ContactBubble component props
@@ -70,18 +71,7 @@ export interface ContactBubbleListProps {
   disabled?: boolean;
 }
 
-/**
- * Get initials from a name
- */
-export const getInitials = (name: string): string => {
-  if (!name || name.trim() === '') return '?';
-  
-  const words = name.trim().split(/\s+/);
-  if (words.length === 1) {
-    return words[0].charAt(0).toUpperCase();
-  }
-  return (words[0].charAt(0) + words[words.length - 1].charAt(0)).toUpperCase();
-};
+
 
 /**
  * Platform icon component for contact bubbles
@@ -273,19 +263,7 @@ export const ContactBubble: React.FC<ContactBubbleProps> = ({
   );
 };
 
-/**
- * Available platforms for contact selection
- */
-export const contactPlatforms: PlatformType[] = [
-  'imessage',
-  'whatsapp',
-  'facebook',
-  'skype',
-  'discord',
-  'google',
-  'instagram',
-  'email',
-];
+
 
 /**
  * ContactBubbleForm component

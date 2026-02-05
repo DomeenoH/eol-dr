@@ -17,7 +17,8 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import * as fc from 'fast-check';
 import type { ItemDefinition, ItemType } from '../../types/checklist-structure';
 import type { ItemValue } from '../../types/checklist-data';
-import { RepeatableItemList, getDefaultValue } from '../RepeatableItemList';
+import { RepeatableItemList } from '../RepeatableItemList';
+import { getDefaultValue } from '../../utils/checklist-utils';
 
 // ============================================================================
 // Constants
@@ -363,7 +364,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               validIndexArbitrary(values.length)
             )
           ),
-          ([_itemDef, initialValues, deleteIndex]) => {
+          ([, initialValues, deleteIndex]) => {
             // Simulate deleting an item
             const resultValues = simulateDeleteItem(initialValues, deleteIndex);
             
@@ -406,7 +407,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               validIndexArbitrary(values.length)
             )
           ),
-          ([_itemDef, initialValues, deleteIndex]) => {
+          ([, initialValues, deleteIndex]) => {
             // Simulate deleting an item
             const resultValues = simulateDeleteItem(initialValues, deleteIndex);
             
@@ -443,7 +444,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               primitiveValueArbitrary(itemDef.type)
             )
           ),
-          ([_itemDef, singleValue]) => {
+          ([, singleValue]) => {
             const initialValues: ItemValue[] = [singleValue];
             
             // Simulate deleting the only item
@@ -480,7 +481,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               itemValueArrayArbitrary(itemDef.type, 2, 10)
             )
           ),
-          ([_itemDef, initialValues]) => {
+          ([, initialValues]) => {
             // Delete the first item
             const resultValues = simulateDeleteItem(initialValues, 0);
             
@@ -517,7 +518,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               itemValueArrayArbitrary(itemDef.type, 2, 10)
             )
           ),
-          ([_itemDef, initialValues]) => {
+          ([, initialValues]) => {
             const lastIndex = initialValues.length - 1;
             
             // Delete the last item
@@ -776,7 +777,7 @@ describe('Property 6: Dynamic Item Operations', () => {
               validIndexArbitrary(values.length)
             )
           ),
-          ([_itemDef, initialValues, deleteIndex]) => {
+          ([, initialValues, deleteIndex]) => {
             // Create a deep copy to compare later
             const originalCopy = JSON.parse(JSON.stringify(initialValues));
             

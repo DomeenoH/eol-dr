@@ -257,6 +257,7 @@ describe('Property 4: Export Content Completeness', () => {
   function containsTimestamp(content: string): boolean {
     // Check for timestamp label and a date pattern
     const hasTimestampLabel = content.includes('导出时间') || content.includes('Export');
+    // eslint-disable-next-line no-useless-escape
     const hasDatePattern = /\d{4}[\/\-]\d{2}[\/\-]\d{2}/.test(content);
     
     return hasTimestampLabel && hasDatePattern;

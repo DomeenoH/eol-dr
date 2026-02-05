@@ -12,8 +12,9 @@
  * - Notes field for additional information
  */
 
-import React, { useState, useCallback } from 'react';
-import type { PlatformType, PlatformBrand } from '../types/platform';
+import { useState, useCallback } from 'react';
+import type { PlatformType } from '../types/platform';
+import { platformBranding } from '../utils/platform-utils';
 
 /**
  * Platform field definition
@@ -66,95 +67,7 @@ export interface PlatformCardProps {
   disabled?: boolean;
 }
 
-/**
- * Platform branding configuration
- */
-export const platformBranding: Record<PlatformType, PlatformBrand> = {
-  discord: {
-    name: 'Discord',
-    primaryColor: '#5865F2',
-    backgroundColor: '#36393f',
-    textColor: '#ffffff',
-  },
-  whatsapp: {
-    name: 'WhatsApp',
-    primaryColor: '#25D366',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  facebook: {
-    name: 'Facebook',
-    primaryColor: '#1877F2',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  imessage: {
-    name: 'iMessage',
-    primaryColor: '#34C759',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  skype: {
-    name: 'Skype',
-    primaryColor: '#00AFF0',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  google: {
-    name: 'Google',
-    primaryColor: '#4285F4',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  instagram: {
-    name: 'Instagram',
-    primaryColor: '#E4405F',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  twitter: {
-    name: 'Twitter',
-    primaryColor: '#1DA1F2',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  github: {
-    name: 'GitHub',
-    primaryColor: '#181717',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  linkedin: {
-    name: 'LinkedIn',
-    primaryColor: '#0A66C2',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  email: {
-    name: 'Email',
-    primaryColor: '#6B7280',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  bank: {
-    name: 'Bank',
-    primaryColor: '#059669',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  paypal: {
-    name: 'PayPal',
-    primaryColor: '#003087',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-  crypto: {
-    name: 'Crypto',
-    primaryColor: '#F7931A',
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-  },
-};
+
 
 
 /**
@@ -231,6 +144,9 @@ const PlatformIcon: React.FC<{ platform: PlatformType; className?: string }> = (
     ),
     crypto: (
       <path d="M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.546zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.52 2.107c-.345-.087-.7-.168-1.05-.25l.53-2.12-1.32-.33-.54 2.16c-.285-.067-.565-.13-.84-.2l-1.815-.45-.35 1.407s.975.225.955.238c.535.136.63.486.615.766l-.617 2.477c.037.01.085.024.14.047l-.14-.036-.865 3.467c-.067.166-.237.415-.62.32.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.254 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.52 2.75 2.084v.006z" />
+    ),
+    other: (
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
     ),
   };
 

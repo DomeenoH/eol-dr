@@ -44,26 +44,7 @@ export interface RepeatableItemListProps {
 /**
  * Get default value for an item based on its type
  */
-export const getDefaultValue = (item: ItemDefinition): ItemValue => {
-  switch (item.type) {
-    case 'checkbox':
-      return false;
-    case 'number':
-      return 0;
-    case 'group':
-      // For group types, create an object with default values for each field
-      if (item.fields) {
-        const groupValue: Record<string, ItemValue> = {};
-        item.fields.forEach((field) => {
-          groupValue[field.id] = getDefaultValue(field);
-        });
-        return groupValue;
-      }
-      return {};
-    default:
-      return '';
-  }
-};
+import { getDefaultValue } from '../utils/checklist-utils';
 
 /**
  * Plus icon for add button

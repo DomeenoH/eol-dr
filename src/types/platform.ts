@@ -20,7 +20,8 @@ export type PlatformType =
   | 'email'
   | 'bank'
   | 'paypal'
-  | 'crypto';
+  | 'crypto'
+  | 'other';
 
 /**
  * Platform branding configuration

@@ -1,30 +1,10 @@
 /**
- * ThemeContext - 主题管理系统
- * 
- * 功能：
- * - 支持 light / dark / system 三种模式
- * - 自动检测系统偏好
- * - localStorage 持久化
- * - 监听系统主题变化
+ * ThemeProvider Component
+ * Manages theme state and application.
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-
-export type Theme = 'light' | 'dark' | 'system';
-export type ResolvedTheme = 'light' | 'dark';
-
-interface ThemeContextValue {
-  /** 用户选择的主题 */
-  theme: Theme;
-  /** 实际应用的主题 */
-  resolvedTheme: ResolvedTheme;
-  /** 设置主题 */
-  setTheme: (theme: Theme) => void;
-  /** 切换主题 (light <-> dark) */
-  toggleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ThemeContext, type Theme, type ResolvedTheme, type ThemeContextValue } from './ThemeContext';
 
 const THEME_STORAGE_KEY = 'eol-dr-theme';
 
@@ -144,16 +124,3 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     </ThemeContext.Provider>
   );
 };
-
-/**
- * Hook: 使用主题
- */
-export function useTheme(): ThemeContextValue {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-}
-
-export default ThemeContext;

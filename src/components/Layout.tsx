@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -79,7 +80,11 @@ export const Layout: React.FC<LayoutProps> = ({
 
           <div className="flex-1 flex items-center justify-between">
             {header || <h1 className="text-lg font-semibold text-[var(--text-primary)] tracking-wide">EOL Checklist</h1>}
-            <LanguageSwitcher />
+            <div className="flex items-center gap-3">
+              <ThemeSwitcher />
+              <div className="h-4 w-px bg-[var(--border-subtle)]" />
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </header>
