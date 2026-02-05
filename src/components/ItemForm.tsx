@@ -183,7 +183,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
             checked={isChecked}
             onChange={handleCheckboxChange}
             disabled={disabled}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-4 h-4 text-blue-500 bg-[var(--bg-surface)] border-[var(--border-subtle)] rounded focus:ring-blue-500 focus:ring-offset-[var(--bg-primary)] disabled:opacity-50 disabled:cursor-not-allowed"
             data-testid="item-input"
             aria-describedby={item.helpText ? helpTextId : undefined}
           />
@@ -191,7 +191,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
         <div className="flex-1">
           <label
             htmlFor={inputId}
-            className={`text-sm font-medium ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+            className={`text-sm font-medium ${disabled ? 'text-[var(--text-muted)]' : 'text-[var(--text-primary)]'}`}
           >
             {item.label}
             {item.required && <span className="text-red-500 ml-1">*</span>}
@@ -199,7 +199,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
           {item.helpText && (
             <p
               id={helpTextId}
-              className="mt-1 text-xs text-gray-500"
+              className="mt-1 text-xs text-[var(--text-muted)]"
               data-testid="item-help-text"
             >
               {item.helpText}
@@ -211,7 +211,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
             type="button"
             onClick={onDelete}
             disabled={disabled}
-            className="p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-1.5 rounded-full text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label={`删除 ${item.label}`}
             data-testid="item-delete-button"
           >
@@ -229,7 +229,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
         <div className="flex items-center justify-between">
           <label
             htmlFor={inputId}
-            className={`block text-sm font-medium ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+            className={`block text-sm font-medium ${disabled ? 'text-[var(--text-muted)]' : 'text-[var(--text-primary)]'}`}
           >
             <span className="mr-1" aria-hidden="true">
               {getFieldIcon(item.type, isSensitive)}
@@ -242,7 +242,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
               type="button"
               onClick={onDelete}
               disabled={disabled}
-              className="p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-1.5 rounded-full text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label={`删除 ${item.label}`}
               data-testid="item-delete-button"
             >
@@ -255,7 +255,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
           value={stringValue}
           onChange={handleChange}
           disabled={disabled}
-          className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
           data-testid="item-input"
           aria-describedby={item.helpText ? helpTextId : undefined}
         >
@@ -269,7 +269,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
         {item.helpText && (
           <p
             id={helpTextId}
-            className="mt-1 text-xs text-gray-500 flex items-center gap-1"
+            className="mt-1 text-xs text-[var(--text-muted)] flex items-center gap-1"
             data-testid="item-help-text"
           >
             <HelpIcon className="flex-shrink-0" />
@@ -287,7 +287,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
         <div className="flex items-center justify-between">
           <label
             htmlFor={inputId}
-            className={`block text-sm font-medium ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+            className={`block text-sm font-medium ${disabled ? 'text-slate-500' : 'text-slate-200'}`}
           >
             <span className="mr-1" aria-hidden="true">
               {getFieldIcon(item.type, isSensitive)}
@@ -300,7 +300,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
               type="button"
               onClick={onDelete}
               disabled={disabled}
-              className="p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-1.5 rounded-full text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label={`删除 ${item.label}`}
               data-testid="item-delete-button"
             >
@@ -315,14 +315,14 @@ export const ItemForm: React.FC<ItemFormProps> = ({
           placeholder={item.placeholder}
           disabled={disabled}
           rows={3}
-          className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed resize-none"
+          className="w-full px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed resize-none"
           data-testid="item-input"
           aria-describedby={item.helpText ? helpTextId : undefined}
         />
         {item.helpText && (
           <p
             id={helpTextId}
-            className="mt-1 text-xs text-gray-500 flex items-center gap-1"
+            className="mt-1 text-xs text-slate-400 flex items-center gap-1"
             data-testid="item-help-text"
           >
             <HelpIcon className="flex-shrink-0" />
@@ -375,7 +375,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
               type="button"
               onClick={onDelete}
               disabled={disabled}
-              className="p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-1.5 rounded-full text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-label={`删除 ${item.label}`}
               data-testid="item-delete-button"
             >
@@ -408,7 +408,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
       <div className="flex items-center justify-between">
         <label
           htmlFor={inputId}
-          className={`block text-sm font-medium ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+          className={`block text-sm font-medium ${disabled ? 'text-[var(--text-muted)]' : 'text-[var(--text-primary)]'}`}
         >
           <span className="mr-1" aria-hidden="true">
             {getFieldIcon(item.type, isSensitive)}
@@ -421,7 +421,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
             type="button"
             onClick={onDelete}
             disabled={disabled}
-            className="p-1.5 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-1.5 rounded-full text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label={`删除 ${item.label}`}
             data-testid="item-delete-button"
           >
@@ -439,8 +439,8 @@ export const ItemForm: React.FC<ItemFormProps> = ({
           disabled={disabled}
           required={item.required}
           className={`
-            w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
-            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+            w-full px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-primary)] placeholder-[var(--text-muted)]
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50
             disabled:opacity-50 disabled:cursor-not-allowed
             ${isSensitive ? 'pr-10 font-mono' : ''}
           `}
@@ -454,7 +454,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
             type="button"
             onClick={toggleVisibility}
             disabled={disabled}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded text-[var(--text-muted)] hover:text-blue-500 hover:bg-blue-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label={isVisible ? '隐藏内容' : '显示内容'}
             data-testid="item-visibility-toggle"
           >
@@ -467,7 +467,7 @@ export const ItemForm: React.FC<ItemFormProps> = ({
       {item.helpText && (
         <p
           id={helpTextId}
-          className="mt-1 text-xs text-gray-500 flex items-center gap-1"
+          className="mt-1 text-xs text-slate-400 flex items-center gap-1"
           data-testid="item-help-text"
         >
           <HelpIcon className="flex-shrink-0" />

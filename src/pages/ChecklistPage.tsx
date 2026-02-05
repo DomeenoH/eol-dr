@@ -11,7 +11,10 @@ import { Navigation } from '../components/Navigation';
 import { CategoryForm } from '../components/CategoryForm';
 import { SaveStatus, SaveStatusBadge, SaveButton } from '../components/SaveStatus';
 import { ZenModeView } from '../components/ZenModeView';
+
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { ThemeSwitcher } from '../components/ThemeSwitcher';
+import { Typography, GlassCard, PageContainer, Section as PageSection } from '../components/DesignSystem';
 import type { Section, Category } from '../types/checklist-structure';
 import type { CategoryData } from '../types/checklist-data';
 import type { AppMode } from '../types/progress';
@@ -24,20 +27,27 @@ export interface ChecklistPageProps {
 }
 
 const ModeToggle: React.FC<{ mode: AppMode; onToggle: () => void }> = ({ mode, onToggle }) => (
-  <button
+      <button
     type="button"
     onClick={onToggle}
-    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+    aria-label={mode === 'guided' ? "退出专注模式" : "切换到专注模式"}
+    className={`
+      inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200
+      ${mode === 'guided' 
+        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500/30' 
+        : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:bg-[var(--bg-secondary)]'
+      }
+    `}
   >
     {mode === 'guided' ? (
       <>
-        <ZenModeIcon className="w-4 h-4" />
-        <span className="hidden sm:inline">专注模式</span>
+        <FreeModeIcon className="w-4 h-4" />
+        <span className="hidden sm:inline">自由模式</span>
       </>
     ) : (
       <>
-        <FreeModeIcon className="w-4 h-4" />
-        <span className="hidden sm:inline">自由模式</span>
+        <ZenModeIcon className="w-4 h-4" />
+        <span className="hidden sm:inline">专注模式</span>
       </>
     )}
   </button>
@@ -55,7 +65,6 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
     setMode,
     setCurrentCategory,
     goToNextCategory,
-    goToPrevCategory,
     saveAll,
     isCategoryDirty,
   } = useChecklist();
@@ -63,6 +72,19 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   const { status: saveStatus, lastSaved, error: saveError, hasPendingChanges, pendingCount } = useSaveStatus();
   const { structure } = useChecklistStructure();
   const { currentPosition, mode } = state.progressState;
+  
+  // Prevent accidental navigation when there are unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasPendingChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasPendingChanges]);
   
   // Refs for scroll sync
   const categoryRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -203,14 +225,6 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
     if (!hasNext && onComplete) onComplete();
   }, [goToNextCategory, onComplete]);
 
-  const handlePrevious = useCallback(() => {
-    goToPrevCategory();
-  }, [goToPrevCategory]);
-
-  const handleSkip = useCallback(() => {
-    goToNextCategory();
-  }, [goToNextCategory]);
-
   const handleModeToggle = useCallback(() => {
     setMode(mode === 'guided' ? 'free' : 'guided');
   }, [mode, setMode]);
@@ -223,6 +237,21 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
 
   // Zen Mode (Guided Mode)
   if (mode === 'guided' && currentSection && currentCategory) {
+    // Header content for zen mode (synced with free mode)
+    const zenHeaderContent = (
+      <>
+        <LanguageSwitcher className="hidden sm:block" />
+        <SaveStatusBadge status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} className="hidden sm:flex" />
+        <SaveStatus status={saveStatus} lastSaved={lastSaved} compact className="sm:hidden" />
+        <SaveButton 
+          onSave={saveAll} 
+          pendingCount={pendingCount} 
+          status={saveStatus}
+          className="hidden sm:flex"
+        />
+      </>
+    );
+
     return (
       <ZenModeView
         sections={structure.sections}
@@ -231,10 +260,9 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
         categoryData={currentCategoryData}
         onDataChange={(catId, data) => handleDataChange(currentSection.id, catId, data)}
         onNext={handleNext}
-        onPrevious={handlePrevious}
-        onSkip={handleSkip}
         onExitZenMode={handleExitZenMode}
         onComplete={onComplete}
+        headerContent={zenHeaderContent}
         className={className}
       />
     );
@@ -248,15 +276,17 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
           <button
             type="button"
             onClick={onBack}
-            className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md"
+            className="p-2 -ml-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+            aria-label="返回首页"
           >
             <BackIcon className="w-5 h-5" />
           </button>
         )}
-        <h1 className="text-lg font-semibold text-gray-900">身后事清单</h1>
+        <Typography.h2 className="!text-lg !text-white">身后事清单</Typography.h2>
       </div>
       
       <div className="flex items-center gap-3">
+        <ThemeSwitcher />
         <LanguageSwitcher className="hidden sm:block" />
         <SaveStatusBadge status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} className="hidden sm:flex" />
         <SaveStatus status={saveStatus} lastSaved={lastSaved} compact className="sm:hidden" />
@@ -271,7 +301,7 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
           <button
             type="button"
             onClick={onPreview}
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 shadow-lg shadow-blue-900/40 transition-all duration-200 hover:-translate-y-0.5"
           >
             <PreviewIcon className="w-4 h-4" />
             <span className="hidden sm:inline">预览</span>
@@ -282,12 +312,14 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   );
   
   const sidebarContent = (
-    <Navigation
-      sections={structure.sections}
-      currentPath={currentPath}
-      progress={state.progressState}
-      onNavigate={handleNavigate}
-    />
+    <div className="flex-1 overflow-hidden">
+      <Navigation
+        sections={structure.sections}
+        currentPath={currentPath}
+        progress={state.progressState}
+        onNavigate={handleNavigate}
+      />
+    </div>
   );
   
   const footerContent = (
@@ -307,7 +339,7 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
           <button
             type="button"
             onClick={onComplete}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-500 shadow-lg shadow-emerald-900/40 transition-all duration-200 hover:-translate-y-0.5"
           >
             <CheckIcon className="w-4 h-4" />
             完成并预览
@@ -319,36 +351,40 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   
   return (
     <Layout header={headerContent} sidebar={sidebarContent} footer={footerContent} className={className}>
-      <div className="space-y-8" data-testid="checklist-page">
+      <PageContainer data-testid="checklist-page" className="md:pr-4">
         {/* Render ALL sections and categories */}
         {structure.sections.map(section => (
-          <div key={section.id} className="space-y-4">
+          <PageSection key={section.id}>
             {/* Section Header */}
             <div 
               id={`section-${section.id}`}
-              className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100"
+              data-testid="section-view"
+              className="glass-card bg-[var(--bg-card)] rounded-xl p-5 border border-[var(--border-subtle)] relative overflow-hidden"
             >
-              <h2 className="text-xl font-bold text-gray-900">{section.name}</h2>
-              {section.description && (
-                <p className="mt-1 text-gray-600 text-sm">{section.description}</p>
-              )}
-              {state.progressState.sections?.[section.id] && (
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="flex-1 bg-white/50 rounded-full h-2">
-                    <div
-                      className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${state.progressState.sections[section.id].progress}%` }}
-                    />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-emerald-500/5 opacity-50" />
+              <div className="relative z-10">
+                <Typography.h2 className="!text-xl mb-1 text-[var(--text-primary)]">{section.name}</Typography.h2>
+                {section.description && (
+                  <Typography.body className="!text-sm opacity-80 text-[var(--text-secondary)]">{section.description}</Typography.body>
+                )}
+                {state.progressState.sections?.[section.id] && (
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className="flex-1 bg-[var(--bg-surface)] rounded-full h-1.5 overflow-hidden border border-[var(--border-subtle)]">
+                      <div
+                        className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500"
+                        style={{ width: `${state.progressState.sections[section.id].progress}%` }}
+                      />
+                    </div>
+                    <span className="text-xs font-medium text-blue-400 min-w-[32px] text-right">
+                      {state.progressState.sections[section.id].progress}%
+                    </span>
                   </div>
-                  <span className="text-sm font-medium text-blue-700">
-                    {state.progressState.sections[section.id].progress}%
-                  </span>
-                </div>
-              )}
+                )}
+              </div>
             </div>
             
             {/* Categories */}
-            <div className="space-y-4">
+            <div className="space-y-6 lg:pl-4">
               {section.categories.map(category => {
                 const path = `${section.id}/${category.id}`;
                 const isActive = currentPath === path;
@@ -360,20 +396,23 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
                     ref={(el) => setCategoryRef(path, el)}
                     id={`category-${section.id}-${category.id}`}
                     className={`
-                      transition-all duration-200 relative
-                      ${isActive ? 'ring-2 ring-blue-400 ring-offset-2' : ''}
-                      ${isDirty && !isActive ? 'ring-2 ring-amber-400/60 ring-offset-1' : ''}
+                      transition-all duration-300 relative rounded-xl
+                      ${isActive 
+                        ? 'bg-[var(--bg-surface)] shadow-lg shadow-black/5 ring-1 ring-blue-500/30' 
+                        : 'hover:bg-[var(--bg-surface)]'
+                      }
+                      ${isDirty && !isActive ? 'ring-1 ring-amber-500/50 bg-amber-500/5' : ''}
                     `}
                   >
                     {/* 未保存指示器 */}
                     {isDirty && (
-                      <div className="absolute -top-1 -right-1 z-10">
+                      <div className="absolute top-4 right-4 z-10">
                         <span 
-                          className="flex h-3 w-3"
+                          className="flex h-2.5 w-2.5"
                           title="未保存的更改"
                         >
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
                         </span>
                       </div>
                     )}
@@ -386,39 +425,42 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
                 );
               })}
             </div>
-          </div>
+          </PageSection>
         ))}
         
         {/* Completion Message */}
         {isAllComplete && (
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 p-8 text-center">
-            <div className="flex justify-center mb-4">
-              <div className="bg-green-100 rounded-full p-4">
-                <TrophyIcon className="w-12 h-12 text-green-600" />
+          <GlassCard className="!bg-gradient-to-br from-emerald-900/20 to-emerald-800/20 !border-emerald-500/30 p-8 text-center mt-12">
+            <div className="flex justify-center mb-6">
+              <div className="bg-emerald-500/10 rounded-full p-6 ring-1 ring-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                <TrophyIcon className="w-12 h-12 text-emerald-400" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-green-800 mb-2">
-              <CelebrationIcon className="w-6 h-6 inline mr-2" />恭喜！您已完成所有部分！
-            </h2>
-            <p className="text-green-700 mb-6">您可以预览并导出您的清单，或继续编辑任何部分。</p>
+            <Typography.h2 className="mb-3 flex items-center justify-center gap-2">
+              <CelebrationIcon className="w-6 h-6 text-emerald-400" />
+              恭喜！您已完成所有部分！
+            </Typography.h2>
+            <Typography.body className="mb-8 max-w-lg mx-auto">
+              您可以预览并导出您的清单，或继续编辑任何部分。
+            </Typography.body>
             {onPreview && (
               <button
                 type="button"
                 onClick={onPreview}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-500 shadow-lg shadow-emerald-900/40 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <PreviewIcon className="w-5 h-5" />
                 预览清单
               </button>
             )}
-          </div>
+          </GlassCard>
         )}
-      </div>
+      </PageContainer>
     </Layout>
   );
 };
 
-// Icons
+// Icons with updated styling options
 const BackIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

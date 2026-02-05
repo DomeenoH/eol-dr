@@ -140,11 +140,11 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
 
   return (
     <div 
-      className={`min-h-screen bg-gray-50 ${className}`}
+      className={`min-h-screen bg-[var(--bg-primary)] ${className}`}
       data-testid="preview-page"
     >
       {/* Header - Fixed on top */}
-      <header className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm print:hidden">
+      <header className="sticky top-0 z-10 bg-[var(--bg-secondary)] border-b border-[var(--border-subtle)] shadow-sm print:hidden">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             {/* Title and back button */}
@@ -153,13 +153,13 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
                 <button
                   type="button"
                   onClick={onBack}
-                  className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="p-2 -ml-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   aria-label="返回编辑"
                 >
                   <BackIcon className="w-5 h-5" />
                 </button>
               )}
-              <h1 className="text-xl font-semibold text-gray-900">
+              <h1 className="text-xl font-semibold text-[var(--text-primary)]">
                 预览清单
               </h1>
             </div>
@@ -174,8 +174,8 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
                   inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg
                   focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors
                   ${showSensitive 
-                    ? 'bg-amber-100 text-amber-700 hover:bg-amber-200' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 hover:bg-amber-500/30' 
+                    : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:bg-[var(--bg-surface)]/80'
                   }
                 `}
                 aria-label={showSensitive ? '隐藏敏感信息' : '显示敏感信息'}
@@ -195,7 +195,7 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] bg-[var(--bg-surface)] rounded-lg hover:bg-[var(--bg-surface)]/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                 aria-label="打印"
               >
                 <PrintIcon className="w-4 h-4" />
@@ -220,40 +220,40 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
                 
                 {showExportMenu && (
                   <div 
-                    className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20"
+                    className="absolute right-0 mt-2 w-48 bg-[var(--bg-secondary)] rounded-lg shadow-lg border border-[var(--border-subtle)] py-1 z-20"
                     role="menu"
                     aria-label="导出选项"
                   >
                     <button
                       type="button"
                       onClick={handleExportJSON}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                      className="w-full px-4 py-2 text-left text-sm text-[var(--text-primary)] hover:bg-[var(--bg-surface)] focus:outline-none focus:bg-[var(--bg-surface)]"
                       role="menuitem"
                     >
                       <span className="flex items-center gap-2">
-                        <JSONIcon className="w-4 h-4 text-green-600" />
+                        <JSONIcon className="w-4 h-4 text-green-500" />
                         导出为 JSON
                       </span>
                     </button>
                     <button
                       type="button"
                       onClick={handleExportMarkdown}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                      className="w-full px-4 py-2 text-left text-sm text-[var(--text-primary)] hover:bg-[var(--bg-surface)] focus:outline-none focus:bg-[var(--bg-surface)]"
                       role="menuitem"
                     >
                       <span className="flex items-center gap-2">
-                        <MarkdownIcon className="w-4 h-4 text-purple-600" />
+                        <MarkdownIcon className="w-4 h-4 text-purple-500" />
                         导出为 Markdown
                       </span>
                     </button>
                     <button
                       type="button"
                       onClick={handleExportHTML}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                      className="w-full px-4 py-2 text-left text-sm text-[var(--text-primary)] hover:bg-[var(--bg-surface)] focus:outline-none focus:bg-[var(--bg-surface)]"
                       role="menuitem"
                     >
                       <span className="flex items-center gap-2">
-                        <HTMLIcon className="w-4 h-4 text-orange-600" />
+                        <HTMLIcon className="w-4 h-4 text-orange-500" />
                         导出为 HTML
                       </span>
                     </button>
@@ -266,7 +266,7 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
                 <button
                   type="button"
                   onClick={onBack}
-                  className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] bg-[var(--bg-surface)] rounded-lg hover:bg-[var(--bg-surface)]/80 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   aria-label="返回编辑"
                 >
                   <EditIcon className="w-4 h-4" />
@@ -282,20 +282,20 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Document container */}
         <article 
-          className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden print:shadow-none print:border-none print:rounded-none"
+          className="bg-[var(--bg-secondary)] rounded-xl shadow-sm border border-[var(--border-subtle)] overflow-hidden print:shadow-none print:border-none print:rounded-none"
           aria-label="清单预览"
         >
           {/* Document header */}
-          <div className="border-b border-gray-200 p-6 sm:p-8 print:border-b-2 print:border-gray-800">
+          <div className="border-b border-[var(--border-subtle)] p-6 sm:p-8 print:border-b-2 print:border-gray-800">
             <div className="flex items-start gap-4">
-              <div className="hidden sm:flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full print:bg-gray-200">
-                <ChecklistIcon className="w-8 h-8 text-blue-600 print:text-gray-800" />
+              <div className="hidden sm:flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full print:bg-gray-200">
+                <ChecklistIcon className="w-8 h-8 text-blue-500 print:text-gray-800" />
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                  📋 {previewDocument.title}
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-2">
+                  {previewDocument.title}
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[var(--text-muted)]">
                   生成时间: {formatDate(previewDocument.generatedAt)}
                 </p>
               </div>
@@ -336,7 +336,7 @@ export const PreviewPage: React.FC<PreviewPageProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-lg hover:bg-[var(--bg-surface)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
           >
             <PrintIcon className="w-5 h-5" />
             打印清单
@@ -397,19 +397,19 @@ const PreviewSectionComponent: React.FC<PreviewSectionComponentProps> = ({
 }) => {
   return (
     <section 
-      className={`${!isFirst ? 'pt-6 border-t border-gray-200' : ''}`}
+      className={`${!isFirst ? 'pt-6 border-t border-[var(--border-subtle)]' : ''}`}
       aria-labelledby={`section-${section.name}`}
     >
       <h3 
         id={`section-${section.name}`}
-        className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"
+        className="text-xl font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2"
       >
-        <span className="w-1.5 h-6 bg-blue-600 rounded-full" aria-hidden="true" />
+        <span className="w-1.5 h-6 bg-blue-500 rounded-full" aria-hidden="true" />
         {section.name}
       </h3>
       
       {section.description && (
-        <p className="text-gray-600 italic mb-4 pl-4 border-l-2 border-blue-200 bg-blue-50 py-2 pr-2 rounded-r">
+        <p className="text-[var(--text-secondary)] italic mb-4 pl-4 border-l-2 border-blue-500/30 bg-blue-500/10 py-2 pr-2 rounded-r">
           {section.description}
         </p>
       )}
@@ -441,12 +441,12 @@ const PreviewCategoryComponent: React.FC<PreviewCategoryComponentProps> = ({
 }) => {
   return (
     <div className="space-y-3">
-      <h4 className="text-lg font-semibold text-gray-800">
+      <h4 className="text-lg font-semibold text-[var(--text-primary)]">
         {category.name}
       </h4>
       
       {category.description && (
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-[var(--text-muted)] italic">
           {category.description}
         </p>
       )}
@@ -479,7 +479,7 @@ const PreviewItemComponent: React.FC<PreviewItemComponentProps> = ({
   const renderValue = () => {
     if (Array.isArray(item.value)) {
       return (
-        <ul className="list-disc list-inside space-y-1 text-gray-700">
+        <ul className="list-disc list-inside space-y-1 text-[var(--text-secondary)]">
           {item.value.map((v, i) => (
             <li key={i} className="text-sm">
               {item.sensitive && !showSensitive ? maskSensitiveValue(v) : v}
@@ -494,25 +494,19 @@ const PreviewItemComponent: React.FC<PreviewItemComponentProps> = ({
       : item.value;
     
     return (
-      <span className={`text-gray-700 ${item.sensitive ? 'font-mono' : ''}`}>
+      <span className={`text-[var(--text-secondary)] ${item.sensitive ? 'font-mono' : ''}`}>
         {displayValue}
       </span>
     );
   };
   
   return (
-    <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
+    <div className="bg-[var(--bg-surface)] rounded-lg p-3 border border-[var(--border-subtle)]">
       <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-        <span className="font-medium text-gray-900 flex items-center gap-1">
+        <span className="font-medium text-[var(--text-primary)] flex items-center gap-1">
           {item.label}
           {item.sensitive && (
-            <span 
-              className="text-amber-500 text-xs" 
-              title="敏感信息"
-              aria-label="敏感信息"
-            >
-              🔒
-            </span>
+            <LockIcon className="w-3 h-3 text-amber-500" aria-label="敏感信息" />
           )}
           :
         </span>
@@ -534,13 +528,13 @@ const EmptyState: React.FC = () => {
       role="status"
       aria-label="暂无填写内容"
     >
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-        <EmptyIcon className="w-8 h-8 text-gray-400" />
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-[var(--bg-surface)] rounded-full mb-4">
+        <EmptyIcon className="w-8 h-8 text-[var(--text-muted)]" />
       </div>
-      <h3 className="text-lg font-medium text-gray-900 mb-2">
+      <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">
         暂无填写内容
       </h3>
-      <p className="text-gray-500 max-w-sm mx-auto">
+      <p className="text-[var(--text-muted)] max-w-sm mx-auto">
         您还没有填写任何内容。请返回编辑页面开始填写您的清单。
       </p>
     </div>
@@ -603,6 +597,12 @@ const ChecklistIcon: React.FC<{ className?: string }> = ({ className }) => (
 const EmptyIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+  </svg>
+);
+
+const LockIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
   </svg>
 );
 

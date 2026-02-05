@@ -16,11 +16,11 @@ export interface NavigationProps {
 
 const StatusDot: React.FC<{ status: ProgressStatus }> = ({ status }) => {
   const colors = {
-    completed: 'bg-green-500',
-    in_progress: 'bg-amber-500',
-    not_started: 'bg-gray-300',
+    completed: 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]',
+    in_progress: 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)]',
+    not_started: 'bg-[var(--text-muted)]',
   };
-  return <span className={`w-2 h-2 rounded-full flex-shrink-0 ${colors[status]}`} />;
+  return <span className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-300 ${colors[status]}`} />;
 };
 
 const CategoryItem: React.FC<{
@@ -33,23 +33,32 @@ const CategoryItem: React.FC<{
 }> = ({ category, sectionId, isActive, status, onNavigate, itemRef }) => {
   const path = `${sectionId}/${category.id}`;
   
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onNavigate(path);
+    }
+  };
+  
   return (
     <button
       ref={itemRef}
       type="button"
       onClick={() => onNavigate(path)}
+      onKeyDown={handleKeyDown}
+      data-active={isActive}
       className={`
-        w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md text-left transition-all
+        w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-left transition-all duration-200
         ${isActive 
-          ? 'bg-blue-100 text-blue-700 font-medium border-l-2 border-blue-500 -ml-[2px]' 
-          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+          ? 'bg-blue-500/20 text-[var(--text-primary)] font-medium border-l-2 border-blue-500' 
+          : 'text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)] hover:pl-4 border-l-2 border-transparent'
         }
       `}
     >
       <StatusDot status={status} />
       <span className="truncate">{category.name}</span>
       {status === 'completed' && (
-        <svg className="w-4 h-4 text-green-500 ml-auto flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-4 h-4 text-emerald-500 ml-auto flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
         </svg>
       )}
@@ -69,7 +78,7 @@ const SectionItem: React.FC<{
   
   // Auto-expand when this section becomes current
   useEffect(() => {
-    if (isCurrentSection && !isExpanded) {
+    if (isCurrentSection) {
       setIsExpanded(true);
     }
   }, [isCurrentSection]);
@@ -82,20 +91,21 @@ const SectionItem: React.FC<{
   };
 
   return (
-    <div className="mb-1">
+    <div className="mb-2">
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
+        data-active={isCurrentSection}
         className={`
-          w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium rounded-md transition-colors
+          w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200
           ${isCurrentSection 
-            ? 'bg-blue-50 text-blue-800' 
-            : 'text-gray-700 hover:bg-gray-100'
+            ? 'bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-sm ring-1 ring-[var(--border-subtle)]' 
+            : 'text-[var(--text-secondary)] hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]'
           }
         `}
       >
         <svg
-          className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${isExpanded ? 'rotate-90' : ''}`}
+          className={`w-4 h-4 text-[var(--text-muted)] transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-90' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -108,12 +118,12 @@ const SectionItem: React.FC<{
         
         {/* Progress badge */}
         <span className={`
-          text-xs px-1.5 py-0.5 rounded-full flex-shrink-0
+          text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 font-medium
           ${progress === 100 
-            ? 'bg-green-100 text-green-700' 
+            ? 'bg-emerald-500/20 text-emerald-500' 
             : progress > 0 
-              ? 'bg-amber-100 text-amber-700' 
-              : 'bg-gray-100 text-gray-500'
+              ? 'bg-amber-500/20 text-amber-500' 
+              : 'bg-[var(--bg-surface)] text-[var(--text-muted)]'
           }
         `}>
           {progress}%
@@ -121,7 +131,7 @@ const SectionItem: React.FC<{
       </button>
 
       {isExpanded && (
-        <div className="ml-4 mt-1 space-y-0.5 border-l border-gray-200 pl-2">
+        <div className="ml-3 mt-1 space-y-0.5 border-l border-[var(--border-subtle)] pl-2">
           {section.categories.map(category => {
             const categoryPath = `${section.id}/${category.id}`;
             const isActive = currentPath === categoryPath;
@@ -174,25 +184,25 @@ export const Navigation: React.FC<NavigationProps> = ({
   }, [currentPath]);
 
   return (
-    <nav ref={containerRef} aria-label="导航" className="h-full">
+    <nav ref={containerRef} aria-label="Checklist 导航" className="h-full">
       {/* Overall progress */}
-      <div className="px-3 py-3 mb-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+      <div className="px-4 py-4 mb-4 mx-2 mt-2 bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-surface)] rounded-xl border border-[var(--border-subtle)] shadow-lg" data-testid="progress-bar">
         <div className="flex items-center justify-between text-sm mb-2">
-          <span className="text-gray-600 font-medium">总进度</span>
-          <span className={`font-bold ${progress.overall === 100 ? 'text-green-600' : 'text-blue-600'}`}>
+          <span className="text-[var(--text-muted)] font-medium">总进度</span>
+          <span className={`font-bold ${progress.overall === 100 ? 'text-emerald-500' : 'text-blue-500'}`}>
             {progress.overall}%
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <div className="w-full bg-[var(--bg-surface)] rounded-full h-1.5 overflow-hidden border border-[var(--border-subtle)]">
           <div
-            className={`h-2 rounded-full transition-all duration-500 ${
-              progress.overall === 100 ? 'bg-green-500' : 'bg-blue-500'
+            className={`h-full rounded-full transition-all duration-700 ease-out ${
+              progress.overall === 100 ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]'
             }`}
             style={{ width: `${progress.overall}%` }}
           />
         </div>
         {progress.overall === 100 && (
-          <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
+          <p className="text-xs text-emerald-400 mt-2 flex items-center gap-1 font-medium animate-pulse">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
@@ -202,7 +212,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       {/* Section list */}
-      <div className="space-y-0.5">
+      <div className="space-y-1 px-2">
         {sections.map(section => (
           <SectionItem
             key={section.id}

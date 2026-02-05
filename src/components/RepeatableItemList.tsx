@@ -90,10 +90,10 @@ const PlusIcon: React.FC<{ className?: string }> = ({ className = '' }) => (
  */
 const EmptyState: React.FC<{ message: string }> = ({ message }) => (
   <div
-    className="text-center py-6 text-gray-500"
+    className="text-center py-6 text-slate-400"
     data-testid="repeatable-empty-state"
   >
-    <p className="text-sm">{message}</p>
+    <p className="text-sm text-[var(--text-muted)]">{message}</p>
   </div>
 );
 
@@ -106,13 +106,13 @@ const ItemWrapper: React.FC<{
   className?: string;
 }> = ({ index, children, className = '' }) => (
   <div
-    className={`relative p-4 bg-white rounded-lg border border-gray-200 shadow-sm ${className}`}
+    className={`relative p-4 bg-[var(--bg-surface)] rounded-lg border border-[var(--border-subtle)] shadow-sm ${className}`}
     data-testid="repeatable-item-wrapper"
     data-item-index={index}
   >
     {/* Index badge */}
     <div
-      className="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center bg-blue-500 text-white text-xs font-semibold rounded-full"
+      className="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center bg-blue-500 text-white text-xs font-semibold rounded-full shadow-lg"
       data-testid="repeatable-item-index"
       aria-label={`项目 ${index + 1}`}
     >
@@ -194,12 +194,12 @@ export const RepeatableItemList: React.FC<RepeatableItemListProps> = ({
         <div>
           <h3
             id={`${listId}-label`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-[var(--text-primary)]"
           >
             {item.label}
-            {item.required && <span className="text-red-500 ml-1">*</span>}
+            {item.required && <span className="text-red-400 ml-1">*</span>}
             <span
-              className="ml-2 text-xs text-gray-500"
+              className="ml-2 text-xs text-[var(--text-muted)]"
               data-testid="repeatable-item-count"
             >
               ({values.length} 项)
@@ -207,7 +207,7 @@ export const RepeatableItemList: React.FC<RepeatableItemListProps> = ({
           </h3>
           {item.helpText && (
             <p
-              className="text-xs text-gray-500 mt-1"
+              className="text-xs text-[var(--text-muted)] mt-1"
               data-testid="repeatable-help-text"
             >
               {item.helpText}
@@ -251,7 +251,7 @@ export const RepeatableItemList: React.FC<RepeatableItemListProps> = ({
         type="button"
         onClick={handleAdd}
         disabled={!canAdd}
-        className="w-full py-3 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-gray-300 disabled:hover:text-gray-500 disabled:hover:bg-transparent"
+        className="w-full py-3 px-4 border-2 border-dashed border-[var(--border-subtle)] rounded-lg text-[var(--text-muted)] hover:border-blue-500 hover:text-blue-500 hover:bg-blue-500/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[var(--bg-primary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[var(--border-subtle)] disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent"
         data-testid="repeatable-add-button"
         aria-label={defaultAddLabel}
       >
@@ -264,7 +264,7 @@ export const RepeatableItemList: React.FC<RepeatableItemListProps> = ({
       {/* Max items reached message */}
       {values.length >= maxItems && (
         <p
-          className="text-xs text-amber-600 text-center"
+          className="text-xs text-amber-400 text-center"
           data-testid="repeatable-max-reached"
           role="status"
         >

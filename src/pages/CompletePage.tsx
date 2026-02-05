@@ -97,17 +97,17 @@ export const CompletePage: React.FC<CompletePageProps> = ({
 
   return (
     <div 
-      className={`min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 ${className}`}
+      className={`min-h-screen bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)] ${className}`}
       data-testid="complete-page"
     >
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
         {/* Celebration Animation */}
         <div className="text-center mb-8">
           <div 
-            className="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mb-6 animate-bounce"
+            className="inline-flex items-center justify-center w-24 h-24 bg-green-500/20 rounded-full mb-6 animate-bounce border border-green-500/30"
             aria-hidden="true"
           >
-            <TrophyIcon className="w-12 h-12 text-green-600" />
+            <TrophyIcon className="w-12 h-12 text-green-400" />
           </div>
           
           {/* Confetti decoration */}
@@ -122,38 +122,38 @@ export const CompletePage: React.FC<CompletePageProps> = ({
         {/* Congratulations Message */}
         <header className="text-center mb-10">
           <h1 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] mb-4"
             id="complete-title"
           >
-            🎉 恭喜您完成了清单！
+            恭喜您完成了清单！
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto">
+          <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-xl mx-auto">
             您已经成功完成了身后事清单的填写。这份清单将帮助您的家人在需要时获取重要信息。
           </p>
         </header>
 
         {/* Progress Summary Card */}
         <div 
-          className="bg-white rounded-2xl shadow-lg border border-green-200 p-6 sm:p-8 mb-8"
+          className="bg-[var(--bg-card)] backdrop-blur-sm rounded-2xl shadow-lg border border-[var(--border-card)] p-6 sm:p-8 mb-8"
           role="region"
           aria-labelledby="summary-title"
         >
-          <h2 id="summary-title" className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <CheckCircleIcon className="w-6 h-6 text-green-600" />
+          <h2 id="summary-title" className="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+            <CheckCircleIcon className="w-6 h-6 text-green-500" />
             完成摘要
           </h2>
           
           <div className="flex items-center gap-4 mb-4">
             <div className="flex-1">
-              <div className="flex justify-between text-sm text-gray-600 mb-1">
+              <div className="flex justify-between text-sm text-[var(--text-secondary)] mb-1">
                 <span>整体进度</span>
-                <span className="font-medium text-green-600">
+                <span className="font-medium text-green-500">
                   {Math.round(state.progressState.overall)}%
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
+              <div className="w-full bg-[var(--bg-surface)] rounded-full h-3">
                 <div 
-                  className="bg-green-600 h-3 rounded-full transition-all duration-500"
+                  className="bg-green-500 h-3 rounded-full transition-all duration-500"
                   style={{ width: `${state.progressState.overall}%` }}
                   role="progressbar"
                   aria-valuenow={state.progressState.overall}
@@ -165,7 +165,7 @@ export const CompletePage: React.FC<CompletePageProps> = ({
             </div>
           </div>
 
-          <p className="text-sm text-gray-500 flex items-center gap-2">
+          <p className="text-sm text-[var(--text-muted)] flex items-center gap-2">
             <InfoIcon className="w-4 h-4" />
             请务必导出并妥善保存您的数据，以便在需要时使用。
           </p>
@@ -174,7 +174,7 @@ export const CompletePage: React.FC<CompletePageProps> = ({
         {/* Export Success Message */}
         {exportSuccess && (
           <div 
-            className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg text-green-800 text-center animate-fade-in"
+            className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-green-300 text-center animate-fade-in"
             role="alert"
             aria-live="polite"
           >
@@ -222,44 +222,44 @@ export const CompletePage: React.FC<CompletePageProps> = ({
 
               {showExportMenu && (
                 <div 
-                  className="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-20"
+                  className="absolute left-0 right-0 mt-2 bg-slate-800 rounded-xl shadow-xl border border-slate-600 py-2 z-20"
                   role="menu"
                   aria-label="导出选项"
                 >
                   <button
                     type="button"
                     onClick={handleExportJSON}
-                    className="w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 flex items-center gap-3"
+                    className="w-full px-4 py-3 text-left text-slate-200 hover:bg-slate-700 focus:outline-none focus:bg-slate-700 flex items-center gap-3"
                     role="menuitem"
                   >
-                    <JSONIcon className="w-5 h-5 text-green-600" />
+                    <JSONIcon className="w-5 h-5 text-green-400" />
                     <div>
                       <div className="font-medium">导出为 JSON</div>
-                      <div className="text-xs text-gray-500">用于数据备份和迁移</div>
+                      <div className="text-xs text-slate-400">用于数据备份和迁移</div>
                     </div>
                   </button>
                   <button
                     type="button"
                     onClick={handleExportMarkdown}
-                    className="w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 flex items-center gap-3"
+                    className="w-full px-4 py-3 text-left text-slate-200 hover:bg-slate-700 focus:outline-none focus:bg-slate-700 flex items-center gap-3"
                     role="menuitem"
                   >
-                    <MarkdownIcon className="w-5 h-5 text-purple-600" />
+                    <MarkdownIcon className="w-5 h-5 text-purple-400" />
                     <div>
                       <div className="font-medium">导出为 Markdown</div>
-                      <div className="text-xs text-gray-500">可读的文档格式</div>
+                      <div className="text-xs text-slate-400">可读的文档格式</div>
                     </div>
                   </button>
                   <button
                     type="button"
                     onClick={handleExportHTML}
-                    className="w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 flex items-center gap-3"
+                    className="w-full px-4 py-3 text-left text-slate-200 hover:bg-slate-700 focus:outline-none focus:bg-slate-700 flex items-center gap-3"
                     role="menuitem"
                   >
-                    <HTMLIcon className="w-5 h-5 text-orange-600" />
+                    <HTMLIcon className="w-5 h-5 text-orange-400" />
                     <div>
                       <div className="font-medium">导出为 HTML</div>
-                      <div className="text-xs text-gray-500">适合打印的网页格式</div>
+                      <div className="text-xs text-slate-400">适合打印的网页格式</div>
                     </div>
                   </button>
                 </div>
@@ -272,7 +272,7 @@ export const CompletePage: React.FC<CompletePageProps> = ({
             <button
               type="button"
               onClick={onBackToEdit}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-slate-200 bg-slate-800 border border-slate-600 rounded-xl hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors"
               aria-label="返回编辑"
             >
               <EditIcon className="w-5 h-5" />
@@ -283,36 +283,36 @@ export const CompletePage: React.FC<CompletePageProps> = ({
 
         {/* Important Reminder */}
         <div 
-          className="mt-10 p-6 bg-amber-50 border border-amber-200 rounded-xl"
+          className="mt-10 p-6 bg-amber-500/10 border border-amber-500/30 rounded-xl"
           role="alert"
           aria-labelledby="reminder-title"
         >
-          <h3 id="reminder-title" className="text-lg font-semibold text-amber-800 mb-2 flex items-center gap-2">
+          <h3 id="reminder-title" className="text-lg font-semibold text-amber-300 mb-2 flex items-center gap-2">
             <WarningIcon className="w-5 h-5" />
             重要提醒
           </h3>
-          <ul className="text-amber-700 space-y-2 text-sm">
+          <ul className="text-amber-200/80 space-y-2 text-sm">
             <li className="flex items-start gap-2">
-              <span className="text-amber-500 mt-0.5">•</span>
+              <span className="text-amber-400 mt-0.5">•</span>
               <span>请导出并妥善保存您的数据，建议保存多份备份</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500 mt-0.5">•</span>
+              <span className="text-amber-400 mt-0.5">•</span>
               <span>告知您信任的家人或朋友这份清单的存放位置</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500 mt-0.5">•</span>
+              <span className="text-amber-400 mt-0.5">•</span>
               <span>定期更新清单内容，确保信息的准确性</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500 mt-0.5">•</span>
+              <span className="text-amber-400 mt-0.5">•</span>
               <span>您的数据仅保存在本地浏览器中，清除浏览器数据会导致数据丢失</span>
             </li>
           </ul>
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 text-center text-sm text-gray-500">
+        <footer className="mt-12 text-center text-sm text-slate-400">
           <p>感谢您使用身后事清单应用</p>
           <p className="mt-1">愿这份清单能为您的家人带来帮助 ❤️</p>
         </footer>

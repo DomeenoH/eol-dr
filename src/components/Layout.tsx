@@ -59,15 +59,15 @@ export const Layout: React.FC<LayoutProps> = ({
   const sidebarWidth = isSidebarCollapsed ? 0 : 280; // 280px = w-70
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${className}`}>
+    <div className={`min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] ${className}`}>
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30 h-14">
+      <header className="fixed top-0 left-0 right-0 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] z-30 h-14 shadow-sm">
         <div className="flex items-center justify-between px-4 h-full">
           {hasSidebar && (
             <button
               type="button"
               onClick={toggleMobileMenu}
-              className={`md:hidden flex items-center justify-center ${TOUCH_TARGET_SIZE} -ml-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100`}
+              className={`md:hidden flex items-center justify-center ${TOUCH_TARGET_SIZE} -ml-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] transition-colors`}
               aria-label={isMobileMenuOpen ? '关闭菜单' : '打开菜单'}
             >
               {isMobileMenuOpen ? <CloseIcon className="w-6 h-6" /> : <HamburgerIcon className="w-6 h-6" />}
@@ -75,7 +75,7 @@ export const Layout: React.FC<LayoutProps> = ({
           )}
 
           <div className="flex-1 flex items-center justify-between">
-            {header || <h1 className="text-lg font-semibold text-gray-900">EOL Checklist</h1>}
+            {header || <h1 className="text-lg font-semibold text-[var(--text-primary)] tracking-wide">EOL Checklist</h1>}
           </div>
         </div>
       </header>
@@ -84,8 +84,8 @@ export const Layout: React.FC<LayoutProps> = ({
       {hasSidebar && (
         <div
           className={`
-            fixed inset-0 bg-black z-40 md:hidden transition-opacity duration-300
-            ${isMobileMenuOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+            fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300
+            ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
           `}
           onClick={closeMobileMenu}
         />
@@ -94,20 +94,20 @@ export const Layout: React.FC<LayoutProps> = ({
       {/* Fixed Sidebar - Desktop */}
       {hasSidebar && !isSidebarCollapsed && (
         <aside
-          className="hidden md:flex fixed left-0 top-14 bottom-0 w-[280px] bg-white border-r border-gray-200 flex-col z-20 group"
+          className="hidden md:flex fixed left-0 top-14 bottom-0 w-[280px] bg-[var(--bg-secondary)]/50 backdrop-blur-md border-r border-[var(--border-subtle)] flex-col z-20 group"
           style={{ height: 'calc(100vh - 56px)' }}
         >
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             {sidebar}
           </div>
           {/* Collapse button on right edge */}
           <button
             type="button"
             onClick={toggleSidebarCollapse}
-            className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-12 bg-white border border-gray-200 rounded-r-lg shadow-sm hover:bg-gray-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-30"
+            className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-12 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-r-lg shadow-lg hover:bg-[var(--bg-surface)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-30 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             aria-label="收起侧边栏"
           >
-            <ChevronLeftIcon className="w-4 h-4 text-gray-500" />
+            <ChevronLeftIcon className="w-4 h-4" />
           </button>
         </aside>
       )}
@@ -117,10 +117,10 @@ export const Layout: React.FC<LayoutProps> = ({
         <button
           type="button"
           onClick={toggleSidebarCollapse}
-          className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 w-6 h-12 bg-white border border-gray-200 rounded-r-lg shadow-sm hover:bg-gray-50 items-center justify-center z-20"
+          className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 w-6 h-12 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-r-lg shadow-lg hover:bg-[var(--bg-surface)] items-center justify-center z-20 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
           aria-label="展开侧边栏"
         >
-          <ChevronRightIcon className="w-4 h-4 text-gray-500" />
+          <ChevronRightIcon className="w-4 h-4" />
         </button>
       )}
 
@@ -129,22 +129,22 @@ export const Layout: React.FC<LayoutProps> = ({
         <aside
           className={`
             md:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw]
-            bg-white border-r border-gray-200 flex flex-col
+            bg-[var(--bg-secondary)] border-r border-[var(--border-subtle)] flex flex-col shadow-2xl
             transform transition-transform duration-300
             ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
           `}
         >
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
-            <span className="font-medium text-gray-900">导航菜单</span>
+          <div className="flex items-center justify-between p-4 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]/50 backdrop-blur-md">
+            <span className="font-medium text-[var(--text-primary)]">导航菜单</span>
             <button
               type="button"
               onClick={closeMobileMenu}
-              className={`flex items-center justify-center ${TOUCH_TARGET_SIZE} -mr-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100`}
+              className={`flex items-center justify-center ${TOUCH_TARGET_SIZE} -mr-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] transition-colors`}
             >
               <CloseIcon className="w-5 h-5" />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             {sidebar}
           </div>
         </aside>
@@ -163,7 +163,7 @@ export const Layout: React.FC<LayoutProps> = ({
       {/* Footer */}
       {footer && (
         <footer
-          className="bg-white border-t border-gray-200 px-4 py-3 transition-all duration-300"
+          className="bg-[var(--bg-secondary)]/80 backdrop-blur-md border-t border-[var(--border-subtle)] px-4 py-3 transition-all duration-300"
           style={{ marginLeft: hasSidebar && !isSidebarCollapsed ? `${sidebarWidth}px` : 0 }}
         >
           {footer}

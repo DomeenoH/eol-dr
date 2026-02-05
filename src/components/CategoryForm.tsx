@@ -147,17 +147,17 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden ${className}`}
+      className={`bg-[var(--bg-card)] backdrop-blur-sm rounded-xl shadow-lg border border-[var(--border-card)] overflow-hidden ${className}`}
       data-testid="category-form"
       data-category-id={category.id}
       role="region"
       aria-labelledby={categoryId}
     >
       {/* Category Header */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-gray-200">
+      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 px-6 py-4 border-b border-[var(--border-subtle)]">
         <h2
           id={categoryId}
-          className="text-lg font-semibold text-gray-900"
+          className="text-lg font-semibold text-[var(--text-primary)]"
           data-testid="category-name"
         >
           {category.name}
@@ -167,10 +167,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         {displayDescription && (
           <div
             id={descriptionId}
-            className="mt-2 flex items-start gap-2 text-sm text-gray-600"
+            className="mt-2 flex items-start gap-2 text-sm text-[var(--text-secondary)]"
             data-testid="category-description"
           >
-            <InfoIcon className="flex-shrink-0 text-blue-500 mt-0.5" />
+            <InfoIcon className="flex-shrink-0 text-blue-400 mt-0.5" />
             <p>{displayDescription}</p>
           </div>
         )}
@@ -178,7 +178,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         {/* Help Text */}
         {category.helpText && (
           <p
-            className="mt-2 text-xs text-gray-500 italic"
+            className="mt-2 text-xs text-[var(--text-muted)] italic"
             data-testid="category-help-text"
           >
             💡 {category.helpText}
@@ -194,7 +194,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       >
         {category.items.length === 0 ? (
           <p
-            className="text-center text-gray-500 py-4"
+            className="text-center text-[var(--text-muted)] py-4"
             data-testid="category-empty"
           >
             此分类暂无可填写的项目

@@ -150,8 +150,10 @@ describe('Navigation', () => {
 
       // Section 1 has 75% progress
       expect(screen.getByText('75%')).toBeInTheDocument();
-      // Section 2 has 0% progress
-      expect(screen.getByText('0%')).toBeInTheDocument();
+      // Section 2 has 0% progress, and overall might be 0% or something else depending on mock
+      // Just check that 0% exists
+      const zeroPercents = screen.getAllByText('0%');
+      expect(zeroPercents.length).toBeGreaterThan(0);
     });
   });
 
@@ -443,7 +445,9 @@ describe('Navigation', () => {
 
       // Should render without errors
       expect(screen.getByText('Section One')).toBeInTheDocument();
-      expect(screen.getByText('0%')).toBeInTheDocument();
+      // Since we now show overall progress and section progress, there will be multiple "0%"
+      const zeroPercents = screen.getAllByText('0%');
+      expect(zeroPercents.length).toBeGreaterThan(0);
     });
 
     it('shows not_started status for categories without progress data', () => {

@@ -9,6 +9,7 @@
  */
 
 import { AppRouter } from './router';
+import { ThemeProvider } from './context/ThemeContext';
 
 /**
  * App Component
@@ -16,9 +17,11 @@ import { AppRouter } from './router';
  */
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AppRouter />
-    </div>
+    <ThemeProvider defaultTheme="system">
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+        <AppRouter />
+      </div>
+    </ThemeProvider>
   );
 }
 

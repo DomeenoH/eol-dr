@@ -181,41 +181,41 @@ function getStatusConfig(status: SaveStatusType) {
       return {
         icon: SavedIcon,
         text: '已保存',
-        colorClass: 'text-green-600',
-        bgClass: 'bg-green-50',
-        borderClass: 'border-green-200',
+        colorClass: 'text-green-400',
+        bgClass: 'bg-green-500/10',
+        borderClass: 'border-green-500/30',
       };
     case 'saving':
       return {
         icon: SavingIcon,
         text: '保存中...',
-        colorClass: 'text-blue-600',
-        bgClass: 'bg-blue-50',
-        borderClass: 'border-blue-200',
+        colorClass: 'text-blue-400',
+        bgClass: 'bg-blue-500/10',
+        borderClass: 'border-blue-500/30',
       };
     case 'error':
       return {
         icon: ErrorIcon,
         text: '保存失败',
-        colorClass: 'text-red-600',
-        bgClass: 'bg-red-50',
-        borderClass: 'border-red-200',
+        colorClass: 'text-red-400',
+        bgClass: 'bg-red-500/10',
+        borderClass: 'border-red-500/30',
       };
     case 'unsaved':
       return {
         icon: UnsavedIcon,
         text: '未保存',
-        colorClass: 'text-amber-600',
-        bgClass: 'bg-amber-50',
-        borderClass: 'border-amber-300',
+        colorClass: 'text-amber-400',
+        bgClass: 'bg-amber-500/10',
+        borderClass: 'border-amber-500/30',
       };
     default:
       return {
         icon: SavedIcon,
         text: '已保存',
-        colorClass: 'text-green-600',
-        bgClass: 'bg-green-50',
-        borderClass: 'border-green-200',
+        colorClass: 'text-green-400',
+        bgClass: 'bg-green-500/10',
+        borderClass: 'border-green-500/30',
       };
   }
 }
@@ -269,7 +269,7 @@ export const SaveStatus: React.FC<SaveStatusProps> = ({
         </span>
         {/* Show relative time for saved status */}
         {status === 'saved' && relativeTime && (
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-slate-400">
             · {relativeTime}
           </span>
         )}
@@ -316,7 +316,7 @@ export const SaveStatusBadge: React.FC<SaveStatusProps> = ({
         {config.text}
       </span>
       {status === 'saved' && relativeTime && (
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-slate-400">
           {relativeTime}
         </span>
       )}
@@ -394,7 +394,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         transition-all duration-200
         ${hasPendingChanges 
           ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg' 
-          : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+          : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-subtle)] cursor-not-allowed'
         }
         ${isSaving ? 'opacity-75 cursor-wait' : ''}
         disabled:opacity-50 disabled:cursor-not-allowed

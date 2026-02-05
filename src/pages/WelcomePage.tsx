@@ -13,6 +13,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useChecklist } from '../context/ChecklistContext';
 import { storageService } from '../services/StorageService';
+import { Typography, GlassCard, PageContainer } from '../components/DesignSystem';
+import { ThemeSwitcher } from '../components/ThemeSwitcher';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import type { AppMode } from '../types/progress';
 
 /**
@@ -91,7 +94,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({
     
     if (!continueFromLast) {
       // Start from the beginning
-      setCurrentCategory({ sectionId: 'emergency-contacts', categoryId: 'contacts' });
+      setCurrentCategory({ sectionId: 'emergency-contacts', categoryId: 'contact-list' });
     }
     // If continuing from last, the position is already loaded from storage
     
@@ -129,87 +132,94 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 ${className}`}>
-      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+    <div className={`min-h-screen bg-[var(--bg-primary)] bg-card-gradient transition-colors duration-300 ${className}`}>
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+        <ThemeSwitcher />
+        <LanguageSwitcher />
+      </div>
+      <PageContainer className="max-w-5xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
         {/* Header Section */}
-        <header className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-6">
-            <ChecklistIcon className="w-10 h-10 text-blue-600" />
+        <header className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500/10 rounded-2xl mb-6 ring-1 ring-white/10 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+            <ChecklistIcon className="w-10 h-10 text-blue-400" />
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            身后事清单
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <Typography.h1 className="mb-2">
+            家庭应急响应清单
+          </Typography.h1>
+          <Typography.h3 className="text-[var(--text-secondary)] font-normal">
             End-of-life Disaster Response Checklist
-          </p>
-          <p className="mt-4 text-gray-500 max-w-xl mx-auto">
-            为您的家人准备一份完整的信息清单，帮助他们在紧急情况下获取所需的所有重要信息。
-          </p>
+          </Typography.h3>
+          <Typography.body className="max-w-xl mx-auto mt-4 text-[var(--text-muted)]">
+            一份给家人的终极交接指南。当不可抗力发生时，确保您的数字资产、财务信息与生活设施能被妥善照料与接管。
+          </Typography.body>
         </header>
 
         {/* Continue from Last Session Card */}
         {savedDataInfo.hasSavedData && (
-          <div className="mb-8">
-            <div 
-              className="bg-white rounded-xl shadow-md border border-blue-200 p-6 hover:shadow-lg transition-shadow"
+          <div className="mb-12">
+            <GlassCard 
+              className="max-w-2xl mx-auto transform transition-all duration-300 hover:scale-[1.02]"
+              hoverEffect={true}
               role="region"
               aria-label="继续上次填写"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <ContinueIcon className="w-6 h-6 text-blue-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
+                    <ContinueIcon className="w-7 h-7 text-white" />
                   </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-1">
+                <div className="flex-1 min-w-0 pt-1">
+                  <Typography.h2 className="mb-2 flex items-center gap-2">
                     继续上次填写
-                  </h2>
-                  <p className="text-sm text-gray-500 mb-3">
-                    {savedDataInfo.lastVisited && (
-                      <span>上次访问: {formatLastVisited(savedDataInfo.lastVisited)}</span>
-                    )}
-                    {savedDataInfo.progress > 0 && (
-                      <span className="ml-2">• 已完成 {Math.round(savedDataInfo.progress)}%</span>
-                    )}
-                  </p>
+                    <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/20">
+                      上次访问: {savedDataInfo.lastVisited ? formatLastVisited(savedDataInfo.lastVisited) : 'Unknown'}
+                    </span>
+                  </Typography.h2>
+                  
                   {/* Progress bar */}
-                  <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
-                    <div 
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${savedDataInfo.progress}%` }}
-                      role="progressbar"
-                      aria-valuenow={savedDataInfo.progress}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      aria-label={`已完成 ${Math.round(savedDataInfo.progress)}%`}
-                    />
+                  <div className="mt-4 mb-2">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-[var(--text-muted)]">完成进度</span>
+                      <span className="text-blue-500 font-medium">{Math.round(savedDataInfo.progress)}%</span>
+                    </div>
+                    <div className="w-full bg-[var(--bg-surface)] rounded-full h-2 overflow-hidden border border-[var(--border-subtle)]">
+                      <div 
+                        className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+                        style={{ width: `${savedDataInfo.progress}%` }}
+                        role="progressbar"
+                        aria-valuenow={savedDataInfo.progress}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      />
+                    </div>
                   </div>
+
                   <button
                     type="button"
                     onClick={() => handleModeSelect(state.progressState.mode, true)}
-                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                    className="mt-4 inline-flex items-center px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg shadow-lg shadow-blue-900/40 transition-all duration-200 hover:-translate-y-0.5"
                     aria-label="继续上次填写"
                   >
-                    <ContinueIcon className="w-5 h-5 mr-2" />
+                    <ContinueIcon className="w-4 h-4 mr-2" />
                     继续填写
                   </button>
                 </div>
               </div>
-            </div>
+            </GlassCard>
           </div>
         )}
 
         {/* Mode Selection Section */}
         <section aria-labelledby="mode-selection-title">
-          <h2 
+          <Typography.h2 
             id="mode-selection-title" 
-            className="text-xl font-semibold text-gray-900 text-center mb-6"
+            className="text-center mb-8 !text-[var(--text-primary)]"
           >
             {savedDataInfo.hasSavedData ? '或者重新开始' : '选择填写模式'}
-          </h2>
+          </Typography.h2>
           
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 cursor-default">
             {/* Guided Mode Card */}
             <ModeCard
               mode="guided"
@@ -244,43 +254,50 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({
         </section>
 
         {/* Info Section */}
-        <section className="mt-12 text-center" aria-labelledby="info-title">
+        <section className="mt-16 text-center" aria-labelledby="info-title">
           <h3 id="info-title" className="sr-only">关于数据安全</h3>
-          <div className="inline-flex items-center gap-2 text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
-            <LockIcon className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] bg-[var(--bg-surface)] border border-[var(--border-subtle)] px-4 py-2 rounded-full backdrop-blur-sm">
+            <LockIcon className="w-4 h-4 text-emerald-400" />
             <span>您的数据仅保存在本地浏览器中，不会上传到任何服务器</span>
           </div>
         </section>
 
         {/* Features Overview */}
-        <section className="mt-16" aria-labelledby="features-title">
-          <h3 id="features-title" className="text-lg font-semibold text-gray-900 text-center mb-8">
+        <section className="mt-20" aria-labelledby="features-title">
+          <Typography.h3 id="features-title" className="text-center mb-10 !text-[var(--text-secondary)]">
             主要功能
-          </h3>
+          </Typography.h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureItem
               icon={<SaveIcon className="w-6 h-6" />}
-              title="自动保存"
-              description="填写内容自动保存，随时可以中断继续"
+              title="本地存储"
+              description="数据加密存储于本地浏览器，完全由您掌控写入时机"
             />
             <FeatureItem
               icon={<ExportIcon className="w-6 h-6" />}
-              title="多格式导出"
-              description="支持导出为 JSON、Markdown 等格式"
+              title="自由导出"
+              description="支持一键导出 JSON 或 Markdown，数据归权于您，随时迁移"
             />
             <FeatureItem
               icon={<PreviewIcon className="w-6 h-6" />}
-              title="预览打印"
-              description="预览填写内容并支持打印输出"
+              title="所见即所得"
+              description="优雅的排版预览，支持一键生成 PDF 或纸质打印备份"
             />
             <FeatureItem
               icon={<LockIcon className="w-6 h-6" />}
-              title="隐私保护"
-              description="敏感信息加密显示，本地存储"
+              title="离线隐私"
+              description="零服务器交互，零数据上传。拔掉网线也能正常使用，绝对安全"
             />
           </div>
         </section>
-      </div>
+
+        {/* Footer */}
+        <footer className="mt-20 text-center text-[var(--text-muted)] text-sm pb-8">
+          <p>
+            源自开源项目 <a href="https://github.com/potatoqualitee/eol-dr" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors border-b border-blue-400/30 hover:border-blue-300">EOL DR</a>
+          </p>
+        </footer>
+      </PageContainer>
     </div>
   );
 };
@@ -309,43 +326,44 @@ const ModeCard: React.FC<ModeCardProps> = ({
   onSelect,
   recommended = false,
 }) => {
+  const isGuided = mode === 'guided';
+  
   return (
-    <div
+    <GlassCard 
+      onClick={onSelect}
       className={`
-        relative bg-white rounded-xl shadow-md border-2 p-6
-        hover:shadow-lg hover:border-blue-300 transition-all duration-200
-        ${recommended ? 'border-blue-200' : 'border-gray-100'}
+        h-full flex flex-col items-center text-center !p-8
+        ${recommended ? 'ring-2 ring-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.15)] bg-[var(--bg-surface)]' : 'bg-[var(--bg-surface)]'}
       `}
       role="article"
       aria-label={`${title} - ${subtitle}`}
     >
       {recommended && (
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <span className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">
+        <div className="absolute top-4 right-4">
+          <span className="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded-full shadow-lg shadow-blue-900/50">
             推荐
           </span>
         </div>
       )}
       
-      <div className="text-center mb-4">
-        <div className={`
-          inline-flex items-center justify-center w-16 h-16 rounded-full mb-4
-          ${mode === 'guided' ? 'bg-blue-100 text-blue-600' : 'bg-purple-100 text-purple-600'}
-        `}>
-          {icon}
-        </div>
-        <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-        <p className="text-sm text-gray-500">{subtitle}</p>
+      <div className={`
+        inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 shadow-inner
+        ${isGuided ? 'bg-blue-500/10 text-blue-400' : 'bg-purple-500/10 text-purple-400'}
+      `}>
+        {icon}
       </div>
       
-      <p className="text-gray-600 text-sm mb-4 text-center">
-        {description}
-      </p>
+      <Typography.h3 className="mb-1 text-[var(--text-primary)]">{title}</Typography.h3>
+      <p className="text-sm text-[var(--text-muted)] mb-6 font-medium uppercase tracking-wider">{subtitle}</p>
       
-      <ul className="space-y-2 mb-6">
+      <Typography.body className="mb-8 flex-grow opacity-80">
+        {description}
+      </Typography.body>
+      
+      <ul className="space-y-3 mb-8 w-full text-left bg-[var(--bg-card)] p-4 rounded-xl">
         {features.map((feature, index) => (
-          <li key={index} className="flex items-center text-sm text-gray-600">
-            <CheckIcon className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+          <li key={index} className="flex items-center text-sm text-[var(--text-secondary)]">
+            <CheckIcon className="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0" />
             {feature}
           </li>
         ))}
@@ -353,20 +371,19 @@ const ModeCard: React.FC<ModeCardProps> = ({
       
       <button
         type="button"
-        onClick={onSelect}
         className={`
-          w-full py-3 px-4 rounded-lg font-medium transition-colors
-          focus:outline-none focus:ring-2 focus:ring-offset-2
-          ${mode === 'guided' 
-            ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500' 
-            : 'bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500'
+          w-full py-3 px-4 rounded-lg font-medium transition-all duration-300
+          shadow-lg hover:shadow-xl hover:-translate-y-0.5
+          ${isGuided 
+            ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400 shadow-blue-500/20 hover:shadow-blue-500/30' 
+            : 'bg-gradient-to-r from-purple-600 to-purple-500 text-white hover:from-purple-500 hover:to-purple-400 shadow-purple-500/20 hover:shadow-purple-500/30'
           }
         `}
         aria-label={`选择${title}`}
       >
         选择{title}
       </button>
-    </div>
+    </GlassCard>
   );
 };
 
@@ -381,18 +398,18 @@ interface FeatureItemProps {
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ icon, title, description }) => {
   return (
-    <div className="text-center p-4">
-      <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-3 text-gray-600">
+    <GlassCard className="text-center !p-6 !bg-[var(--bg-surface)] hover:!bg-[var(--bg-card)] transition-colors" hoverEffect={true}>
+      <div className="inline-flex items-center justify-center w-12 h-12 bg-[var(--bg-card)] rounded-xl mb-4 text-[var(--text-secondary)] ring-1 ring-[var(--border-subtle)]">
         {icon}
       </div>
-      <h4 className="font-medium text-gray-900 mb-1">{title}</h4>
-      <p className="text-sm text-gray-500">{description}</p>
-    </div>
+      <h4 className="font-semibold text-[var(--text-primary)] mb-2">{title}</h4>
+      <p className="text-sm text-[var(--text-muted)] leading-relaxed">{description}</p>
+    </GlassCard>
   );
 };
 
 // ============================================================================
-// Icons
+// Icons (Updated with currentColor compatible logic)
 // ============================================================================
 
 const ChecklistIcon: React.FC<{ className?: string }> = ({ className }) => (

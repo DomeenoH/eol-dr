@@ -225,7 +225,8 @@ describe('WelcomePage', () => {
       renderWelcomePage();
       
       await waitFor(() => {
-        expect(screen.getByText(/已完成 42%/)).toBeInTheDocument();
+        expect(screen.getByText('完成进度')).toBeInTheDocument();
+        expect(screen.getByText('42%')).toBeInTheDocument();
       });
     });
 

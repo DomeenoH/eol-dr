@@ -62,8 +62,6 @@ const defaultProps = {
   categoryData: { items: {} } as CategoryData,
   onDataChange: vi.fn(),
   onNext: vi.fn(),
-  onPrevious: vi.fn(),
-  onSkip: vi.fn(),
   onExitZenMode: vi.fn(),
 };
 
@@ -142,29 +140,6 @@ describe('ZenModeView', () => {
       expect(screen.getByRole('button', { name: /下一步/ })).toBeInTheDocument();
     });
 
-    it('should render Skip button', () => {
-      render(<ZenModeView {...defaultProps} />);
-      
-      expect(screen.getByRole('button', { name: /跳过/ })).toBeInTheDocument();
-    });
-
-    it('should not render Previous button on first category', () => {
-      render(<ZenModeView {...defaultProps} />);
-      
-      expect(screen.queryByRole('button', { name: /上一步/ })).not.toBeInTheDocument();
-    });
-
-    it('should render Previous button on non-first category', () => {
-      render(
-        <ZenModeView
-          {...defaultProps}
-          currentCategory={mockSections[0].categories[1]}
-        />
-      );
-      
-      expect(screen.getByRole('button', { name: /上一步/ })).toBeInTheDocument();
-    });
-
     it('should show "完成" instead of "下一步" on last category', () => {
       render(
         <ZenModeView
@@ -206,30 +181,6 @@ describe('ZenModeView', () => {
       expect(onNext).toHaveBeenCalled();
     });
 
-    it('should call onSkip when Skip button is clicked', () => {
-      const onSkip = vi.fn();
-      render(<ZenModeView {...defaultProps} onSkip={onSkip} />);
-      
-      fireEvent.click(screen.getByRole('button', { name: /跳过/ }));
-      
-      expect(onSkip).toHaveBeenCalled();
-    });
-
-    it('should call onPrevious when Previous button is clicked', () => {
-      const onPrevious = vi.fn();
-      render(
-        <ZenModeView
-          {...defaultProps}
-          currentCategory={mockSections[0].categories[1]}
-          onPrevious={onPrevious}
-        />
-      );
-      
-      fireEvent.click(screen.getByRole('button', { name: /上一步/ }));
-      
-      expect(onPrevious).toHaveBeenCalled();
-    });
-
     it('should call onComplete when Complete button is clicked on last category', () => {
       const onComplete = vi.fn();
       render(
@@ -265,19 +216,6 @@ describe('ZenModeView', () => {
       render(<ZenModeView {...defaultProps} disabled />);
       
       expect(screen.getByRole('button', { name: /下一步/ })).toBeDisabled();
-      expect(screen.getByRole('button', { name: /跳过/ })).toBeDisabled();
-    });
-
-    it('should disable Previous button when disabled', () => {
-      render(
-        <ZenModeView
-          {...defaultProps}
-          currentCategory={mockSections[0].categories[1]}
-          disabled
-        />
-      );
-      
-      expect(screen.getByRole('button', { name: /上一步/ })).toBeDisabled();
     });
   });
 
@@ -335,7 +273,6 @@ describe('ZenModeView', () => {
       render(<ZenModeView {...defaultProps} />);
       
       expect(screen.getByRole('button', { name: /下一步/ })).toHaveAttribute('aria-label');
-      expect(screen.getByRole('button', { name: /跳过/ })).toHaveAttribute('aria-label');
     });
 
     it('should have proper ARIA label for exit button', () => {
