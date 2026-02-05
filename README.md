@@ -1,72 +1,72 @@
-# EOL DR (Liquid Glass Edition)
+# EOL DR (液态玻璃版)
 
-> **Modern. Secure. Compassionate.**
-> A digital legacy planning tool reimagined for the modern web.
+> **优雅 · 安全 · 有温度**
+> 为现代网络重构的数字遗产规划工具。
 
 ![App Icon](/public/app-icon.png)
 
-## 🌟 Introduction
+## 🌟 简介
 
-**EOL DR** (End-of-Life Disaster Response) is a specialized application designed to help technical professionals prepare their digital legacy.
+**EOL DR** (End-of-Life Disaster Response，临终灾难响应) 是一款为技术专业人士打造的数字遗产准备工具。
 
-Originally conceived by [potatoqualitee](https://github.com/potatoqualitee/eol-dr) after a tragic loss in the community, this project asks the hard question: *"If you were hit by a bus tomorrow, could your family manage your digital life?"*
+本项目最初由 [potatoqualitee](https://github.com/potatoqualitee/eol-dr) 发起，源于社区中一次令人痛心的意外离世。它提出了一个尖锐而重要的问题：*"如果明天你遭遇不测，你的家人能顺利接管你的数字生活吗？"*
 
-This fork **(Liquid Glass Edition)** reimagines the original utility with a state-of-the-art User Interface, focusing on clarity, calmness, and usability during stressful times.
+这个分支 **(Liquid Glass Edition)** 是对原工具的现代化重构，采用最前沿的 **Liquid Glass (液态玻璃)** 设计语言，旨在为用户在处理沉重话题时，提供清晰、冷静且极具人文关怀的使用体验。
 
-## ✨ Features
+## ✨ 核心特性
 
-- **Liquid Glass Design System**: A stunning, modern UI featuring glassmorphism, fluid animations, and a deep, calming color palette.
-- **Zen Mode**: A distraction-free environment for filling out difficult information.
-- **Secure by Design**: Client-side first architecture.
-- **Responsive Layout**: Perfect experience on Desktop, Tablet, and Mobile.
-- **Structured Checklist**: Comprehensive categories covering:
-    - 🔐 Identity Management
-    - 💰 Finance & Banking
-    - 🏠 Smart Home & Infrastructure
-    - ☁️ Cloud Services & Subscriptions
+-   **液态玻璃设计系统**: 融合了玻璃拟态 (Glassmorphism)、流畅动画与深邃配色的视觉盛宴，带来沉浸式的宁静体验。
+-   **Zen 专注模式**: 专为填写敏感信息设计的无干扰环境，助你心流式完成清单。
+-   **隐私优先**: 纯客户端架构，数据完全掌握在你手中。
+-   **全端适配**: 无论是桌面大屏还是移动端，都能获得完美体验。
+-   **多语言支持**: 内置中英双语切换，默认中文优先。
+-   **结构化清单**: 涵盖生活方方面面的分类：
+    -   🔐 **身份管理**: 密码管理器、两步验证、关键证件
+    -   💰 **资产金融**: 银行账户、投资组合、保单
+    -   🏠 **智能基建**: 家庭网络、服务器、智能家居
+    -   ☁️ **云端服务**: 订阅管理、云存储、域名续费
 
-## 🛠 Tech Stack
+## 🛠 技术栈
 
-- **Core**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, Vanilla CSS Variables
-- **Icons**: SVG / Custom Assets
-- **Animation**: CSS Transitions & Micro-interactions
+-   **核心框架**: React 18, TypeScript, Vite
+-   **样式引擎**: Tailwind CSS, Vanilla CSS Variables
+-   **图标交互**: SVG / Custom Assets, CSS Transitions
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### Prerequisites
-- Node.js 18+
-- npm or pnpm
+### 环境要求
+-   Node.js 18+
+-   npm 或 pnpm
 
-### Installation
+### 安装步骤
 
 ```bash
-# Clone the repository
+# 克隆仓库
 git clone https://github.com/DomeenoH/eol-dr.git
 
-# Enter directory
+# 进入目录
 cd eol-dr
 
-# Install dependencies
+# 安装依赖
 npm install
 ```
 
-### Development
+### 本地开发
 
 ```bash
 npm run dev
 ```
 
-### Build
+### 构建部署
 
 ```bash
 npm run build
 ```
 
-## 🤝 Acknowledgements
+## 🤝 致谢
 
-*   Originator: **potatoqualitee** - Thank you for starting this important conversation.
-*   Inspiration: The desire to protect those we leave behind.
+*   **原作者**: **[potatoqualitee](https://github.com/potatoqualitee)** - 感谢您开启了这个至关重要的对话。
+*   **灵感**: 每一个渴望守护身后挚爱的人。
 
 ---
 *Maintained by DomeenoH*

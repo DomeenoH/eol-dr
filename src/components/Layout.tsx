@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -74,8 +75,11 @@ export const Layout: React.FC<LayoutProps> = ({
             </button>
           )}
 
+
+
           <div className="flex-1 flex items-center justify-between">
             {header || <h1 className="text-lg font-semibold text-[var(--text-primary)] tracking-wide">EOL Checklist</h1>}
+            <LanguageSwitcher />
           </div>
         </div>
       </header>
