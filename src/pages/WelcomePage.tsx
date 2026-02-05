@@ -132,7 +132,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({
   };
 
   return (
-    <div className={`min-h-screen bg-[var(--bg-primary)] bg-card-gradient transition-colors duration-300 ${className}`}>
+    <div className={`min-h-screen bg-[var(--bg-primary)] dark:bg-card-gradient transition-colors duration-300 ${className}`}>
       <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
         <ThemeSwitcher />
         <LanguageSwitcher />
