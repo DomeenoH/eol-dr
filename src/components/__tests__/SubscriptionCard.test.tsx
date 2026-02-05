@@ -12,10 +12,12 @@ import {
   SubscriptionCard,
   SubscriptionCardForm,
   SubscriptionCardList,
+} from '../SubscriptionCard';
+import {
   actionConfig,
   commonServices,
   getServiceIcon,
-} from '../SubscriptionCard';
+} from '../../utils/subscription-utils';
 import type { SubscriptionData } from '../../types/platform';
 
 describe('getServiceIcon', () => {

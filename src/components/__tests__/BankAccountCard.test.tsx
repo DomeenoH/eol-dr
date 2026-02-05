@@ -12,11 +12,13 @@ import {
   BankAccountCard,
   BankAccountCardForm,
   BankAccountCardList,
+} from '../BankAccountCard';
+import {
   accountTypeConfig,
   accountTypes,
   getAccountTypeLabel,
   getAccountTypeLabelEn,
-} from '../BankAccountCard';
+} from '../../utils/bank-account-utils';
 import type { BankAccountData } from '../../types/platform';
 
 describe('getAccountTypeLabel', () => {

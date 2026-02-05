@@ -17,7 +17,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { PreviewPage } from '../PreviewPage';
-import { ChecklistProvider } from '../../context/ChecklistContext';
+import { ChecklistProvider, ThemeProvider } from '../../context';
 import type { ChecklistData } from '../../types/checklist-data';
 import type { ProgressState } from '../../types/progress';
 
@@ -137,12 +137,14 @@ const renderPreviewPage = (
   initialProgress?: ProgressState
 ) => {
   return render(
-    <ChecklistProvider
-      initialData={initialData}
-      initialProgress={initialProgress}
-    >
-      <PreviewPage {...props} />
-    </ChecklistProvider>
+    <ThemeProvider>
+      <ChecklistProvider
+        initialData={initialData}
+        initialProgress={initialProgress}
+      >
+        <PreviewPage {...props} />
+      </ChecklistProvider>
+    </ThemeProvider>
   );
 };
 

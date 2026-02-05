@@ -16,7 +16,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act, cleanup } from '@testing-library/react';
 import * as fc from 'fast-check';
 import React from 'react';
-import { ChecklistProvider, useChecklist } from '../ChecklistContext';
+import { ChecklistProvider, useChecklist } from '../index';
 import type { ChecklistData } from '../../types/checklist-data';
 import type { ProgressState } from '../../types/progress';
 import type { IStorageService } from '../../services/StorageService';

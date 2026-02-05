@@ -14,7 +14,7 @@ import {
   useChecklistData,
   useProgress,
   useSaveStatus,
-} from '../ChecklistContext';
+} from '../index';
 import type { ChecklistData } from '../../types/checklist-data';
 import type { ProgressState } from '../../types/progress';
 import type { IStorageService } from '../../services/StorageService';

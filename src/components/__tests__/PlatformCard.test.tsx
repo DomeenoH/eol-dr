@@ -7,7 +7,8 @@
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { PlatformCard, platformBranding } from '../PlatformCard';
+import { PlatformCard } from '../PlatformCard';
+import { platformBranding } from '../../utils/platform-utils';
 import type { PlatformData, PlatformField } from '../PlatformCard';
 import type { PlatformType } from '../../types/platform';
 

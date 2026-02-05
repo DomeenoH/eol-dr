@@ -11,11 +11,13 @@ import {
   ContactBubble,
   ContactBubbleForm,
   ContactBubbleList,
+} from '../ContactBubble';
+import {
   contactPlatforms,
   getInitials,
-} from '../ContactBubble';
+} from '../../utils/contact-utils';
 import type { ContactData } from '../../types/platform';
-import { platformBranding } from '../PlatformCard';
+import { platformBranding } from '../../utils/platform-utils';
 
 describe('getInitials', () => {
   it('should return single initial for single word name', () => {

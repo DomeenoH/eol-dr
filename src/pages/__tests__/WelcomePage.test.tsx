@@ -10,10 +10,10 @@
  */
 
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '../../test/test-utils';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { WelcomePage } from '../WelcomePage';
-import { ChecklistProvider } from '../../context/ChecklistContext';
 import type { ChecklistData } from '../../types/checklist-data';
 import type { ProgressState } from '../../types/progress';
 
@@ -44,9 +44,7 @@ import { storageService } from '../../services/StorageService';
  */
 const renderWelcomePage = (props: Partial<React.ComponentProps<typeof WelcomePage>> = {}) => {
   return render(
-    <ChecklistProvider>
-      <WelcomePage {...props} />
-    </ChecklistProvider>
+    <WelcomePage {...props} />
   );
 };
 
@@ -57,6 +55,32 @@ describe('WelcomePage', () => {
     vi.mocked(storageService.isAvailable).mockReturnValue(true);
     vi.mocked(storageService.load).mockReturnValue(null);
     vi.mocked(storageService.loadProgress).mockReturnValue(null);
+    
+    // Mock window.matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+
+    // Mock localStorage
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        getItem: vi.fn(() => null),
+        setItem: vi.fn(),
+        removeItem: vi.fn(),
+        clear: vi.fn(),
+      },
+      writable: true,
+    });
   });
 
   afterEach(() => {
@@ -67,14 +91,14 @@ describe('WelcomePage', () => {
     it('should display the welcome title', () => {
       renderWelcomePage();
       
-      expect(screen.getByText('身后事清单')).toBeInTheDocument();
+      expect(screen.getByText('家庭应急响应清单')).toBeInTheDocument();
       expect(screen.getByText('End-of-life Disaster Response Checklist')).toBeInTheDocument();
     });
 
     it('should display the welcome description', () => {
       renderWelcomePage();
       
-      expect(screen.getByText(/为您的家人准备一份完整的信息清单/)).toBeInTheDocument();
+      expect(screen.getByText(/一份给家人的终极交接指南/)).toBeInTheDocument();
     });
 
     it('should display the data security notice', () => {
@@ -86,10 +110,10 @@ describe('WelcomePage', () => {
     it('should display feature items', () => {
       renderWelcomePage();
       
-      expect(screen.getByText('自动保存')).toBeInTheDocument();
-      expect(screen.getByText('多格式导出')).toBeInTheDocument();
-      expect(screen.getByText('预览打印')).toBeInTheDocument();
-      expect(screen.getByText('隐私保护')).toBeInTheDocument();
+      expect(screen.getByText('本地存储')).toBeInTheDocument();
+      expect(screen.getByText('自由导出')).toBeInTheDocument();
+      expect(screen.getByText('所见即所得')).toBeInTheDocument();
+      expect(screen.getByText('离线隐私')).toBeInTheDocument();
     });
   });
 

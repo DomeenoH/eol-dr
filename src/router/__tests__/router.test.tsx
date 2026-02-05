@@ -9,7 +9,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes, ROUTES } from '../index';
-import { ChecklistProvider } from '../../context/ChecklistContext';
+import { ChecklistProvider, ThemeProvider } from '../../context';
 
 // Mock the storage service to avoid localStorage issues in tests
 vi.mock('../../services/StorageService', () => ({
@@ -25,15 +25,41 @@ vi.mock('../../services/StorageService', () => ({
   StorageError: class StorageError extends Error {},
 }));
 
+import type { ChecklistData } from '../../types/checklist-data';
+
+const sampleChecklistData: ChecklistData = {
+  version: '1.0.0',
+  lastModified: new Date().toISOString(),
+  sections: {
+    'emergency-contacts': {
+      categories: {
+        'contact-list': {
+          items: {
+            contacts: [
+              {
+                name: 'John Doe',
+                platform: 'imessage',
+                contact: '+1234567890',
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
+};
+
 /**
  * Helper function to render with router and context
  */
-function renderWithRouter(initialRoute: string = '/') {
+function renderWithRouter(initialRoute: string = '/', initialData: ChecklistData = sampleChecklistData) {
   return render(
     <MemoryRouter initialEntries={[initialRoute]}>
-      <ChecklistProvider>
-        <AppRoutes />
-      </ChecklistProvider>
+      <ThemeProvider>
+        <ChecklistProvider initialData={initialData}>
+          <AppRoutes />
+        </ChecklistProvider>
+      </ThemeProvider>
     </MemoryRouter>
   );
 }
@@ -41,6 +67,16 @@ function renderWithRouter(initialRoute: string = '/') {
 describe('Router Configuration', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Mock window.scrollTo
+    window.scrollTo = vi.fn();
+    // Mock IntersectionObserver
+    const mockIntersectionObserver = vi.fn();
+    mockIntersectionObserver.mockReturnValue({
+      observe: () => null,
+      unobserve: () => null,
+      disconnect: () => null
+    });
+    window.IntersectionObserver = mockIntersectionObserver;
   });
 
   describe('Route Constants', () => {
@@ -193,9 +229,9 @@ describe('Router Configuration', () => {
     it('should navigate from welcome to checklist when starting', async () => {
       renderWithRouter('/');
       
-      // Click on guided mode button
-      const guidedModeButton = screen.getByRole('button', { name: /选择引导模式/i });
-      fireEvent.click(guidedModeButton);
+      // Click on free mode button
+      const freeModeButton = screen.getByRole('button', { name: /选择自由模式/i });
+      fireEvent.click(freeModeButton);
       
       // Should navigate to checklist page
       await waitFor(() => {

@@ -12,11 +12,13 @@ import {
   DeviceCard,
   DeviceCardForm,
   DeviceCardList,
+} from '../DeviceCard';
+import {
   deviceTypeConfig,
   deviceTypes,
   getDeviceIcon,
   getDeviceTypeLabel,
-} from '../DeviceCard';
+} from '../../utils/device-utils';
 import type { DeviceData } from '../../types/platform';
 
 describe('getDeviceIcon', () => {
@@ -67,8 +69,9 @@ describe('getDeviceTypeLabel', () => {
 describe('deviceTypeConfig', () => {
   it('should have configuration for all device types', () => {
     deviceTypes.forEach((type) => {
-      expect(deviceTypeConfig[type]).toBeDefined();
-      expect(deviceTypeConfig[type].label).toBeTruthy();
+      const typeKey = type as keyof typeof deviceTypeConfig;
+      expect(deviceTypeConfig[typeKey]).toBeDefined();
+      expect(deviceTypeConfig[typeKey].label).toBeTruthy();
       expect(deviceTypeConfig[type].icon).toBeTruthy();
       expect(deviceTypeConfig[type].bgColor).toBeTruthy();
       expect(deviceTypeConfig[type].borderColor).toBeTruthy();

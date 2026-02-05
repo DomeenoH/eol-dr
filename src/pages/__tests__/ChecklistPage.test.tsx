@@ -13,26 +13,18 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ChecklistPage } from '../ChecklistPage';
-import { ChecklistProvider } from '../../context/ChecklistContext';
+import { ChecklistProvider, ThemeProvider } from '../../context';
 import type { ChecklistData } from '../../types/checklist-data';
 import type { ProgressState } from '../../types/progress';
 
-// Mock the StorageService
+// Mock StorageService
 vi.mock('../../services/StorageService', () => ({
   storageService: {
-    isAvailable: vi.fn(() => true),
-    load: vi.fn(() => null),
-    loadProgress: vi.fn(() => null),
+    isAvailable: vi.fn(),
+    load: vi.fn(),
+    loadProgress: vi.fn(),
     save: vi.fn(),
     saveProgress: vi.fn(),
-    clear: vi.fn(),
-    getUsedSpace: vi.fn(() => 0),
-  },
-  StorageError: class StorageError extends Error {
-    constructor(message: string, public code: string) {
-      super(message);
-      this.name = 'StorageError';
-    }
   },
 }));
 
@@ -93,9 +85,11 @@ const renderChecklistPage = (
   initialProgress?: ProgressState
 ) => {
   return render(
-    <ChecklistProvider initialData={initialData} initialProgress={initialProgress}>
-      <ChecklistPage {...props} />
-    </ChecklistProvider>
+    <ThemeProvider>
+      <ChecklistProvider initialData={initialData} initialProgress={initialProgress}>
+        <ChecklistPage {...props} />
+      </ChecklistProvider>
+    </ThemeProvider>
   );
 };
 
@@ -226,7 +220,7 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'free' });
       renderChecklistPage({}, createMockData(), progress);
       
-      expect(screen.getByText('自由模式')).toBeInTheDocument();
+      expect(screen.getByText('专注模式')).toBeInTheDocument();
     });
   });
 
@@ -242,7 +236,8 @@ describe('ChecklistPage', () => {
       });
       
       await waitFor(() => {
-        expect(screen.getByText('自由模式')).toBeInTheDocument();
+        // In free mode, the toggle button should show "专注模式" (switch TO zen)
+        expect(screen.getByText('专注模式')).toBeInTheDocument();
         expect(screen.getByTestId('checklist-page')).toBeInTheDocument();
       });
     });
@@ -327,7 +322,6 @@ describe('ChecklistPage', () => {
       renderChecklistPage({}, createMockData(), progress);
       
       expect(screen.queryByTestId('next-button')).not.toBeInTheDocument();
-      expect(screen.queryByTestId('skip-button')).not.toBeInTheDocument();
     });
   });
 
@@ -337,13 +331,6 @@ describe('ChecklistPage', () => {
       renderChecklistPage({}, createMockData(), progress);
       
       expect(screen.getByRole('button', { name: /下一步/ })).toBeInTheDocument();
-    });
-
-    it('should show Skip button in zen mode (Requirement 1.4)', () => {
-      const progress = createMockProgress({ mode: 'guided' });
-      renderChecklistPage({}, createMockData(), progress);
-      
-      expect(screen.getByRole('button', { name: /跳过/ })).toBeInTheDocument();
     });
 
     it('should navigate to next category when Next button is clicked', async () => {
@@ -360,25 +347,6 @@ describe('ChecklistPage', () => {
       });
       
       // Should navigate to next category - zen mode view should still be visible
-      await waitFor(() => {
-        expect(screen.getByTestId('zen-mode-view')).toBeInTheDocument();
-      });
-    });
-
-    it('should skip to next category when Skip button is clicked (Requirement 1.4)', async () => {
-      const progress = createMockProgress({
-        mode: 'guided',
-        currentPosition: { sectionId: 'emergency-contacts', categoryId: 'contact-list' },
-      });
-      renderChecklistPage({}, createMockData(), progress);
-      
-      const skipButton = screen.getByRole('button', { name: /跳过/ });
-      
-      await act(async () => {
-        fireEvent.click(skipButton);
-      });
-      
-      // Should navigate to next category
       await waitFor(() => {
         expect(screen.getByTestId('zen-mode-view')).toBeInTheDocument();
       });

@@ -10,8 +10,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   RepeatableItemList,
-  getDefaultValue,
 } from '../RepeatableItemList';
+import { getDefaultValue } from '../../utils/checklist-utils';
 import type { ItemDefinition } from '../../types/checklist-structure';
 import type { ItemValue } from '../../types/checklist-data';
 

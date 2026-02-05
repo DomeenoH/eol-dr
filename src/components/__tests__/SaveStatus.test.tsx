@@ -7,7 +7,8 @@
 
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { SaveStatus, SaveStatusBadge, formatRelativeTime } from '../SaveStatus';
+import { SaveStatus, SaveStatusBadge } from '../SaveStatus';
+import { formatRelativeTime } from '../../utils/date-utils';
 
 describe('SaveStatus', () => {
   // Mock the current date for consistent testing
