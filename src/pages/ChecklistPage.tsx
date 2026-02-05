@@ -10,7 +10,7 @@ import { Layout } from '../components/Layout';
 import { Navigation } from '../components/Navigation';
 import { CategoryForm } from '../components/CategoryForm';
 import { SaveStatus, SaveStatusBadge, SaveButton } from '../components/SaveStatus';
-import { ZenModeView } from '../components/ZenModeView';
+import { ZenModeView, calculatePosition } from '../components/ZenModeView';
 
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
@@ -210,60 +210,67 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
 
   const isAllComplete = state.progressState.overall === 100;
 
-  // Zen Mode (Guided Mode)
-  if (mode === 'guided' && currentSection && currentCategory) {
-    // Header content for zen mode (synced with free mode)
-    const zenHeaderContent = (
-      <>
-        <LanguageSwitcher className="hidden sm:block" />
-        <SaveStatusBadge status={saveStatus} lastSaved={lastSaved} errorMessage={saveError} className="hidden sm:flex" />
-        <SaveStatus status={saveStatus} lastSaved={lastSaved} compact className="sm:hidden" />
-        <SaveButton 
-          onSave={saveAll} 
-          pendingCount={pendingCount} 
-          status={saveStatus}
-          className="hidden sm:flex"
-        />
-      </>
-    );
+  // Calculate position for Zen Mode progress
+  const zenPosition = useMemo(() => {
+    if (!currentSection || !currentCategory) return { current: 0, total: 0 };
+    return calculatePosition(structure.sections, currentSection.id, currentCategory.id);
+  }, [structure.sections, currentSection, currentCategory]);
 
-    return (
-      <ZenModeView
-        sections={structure.sections}
-        currentSection={currentSection}
-        currentCategory={currentCategory}
-        categoryData={currentCategoryData}
-        onDataChange={(catId, data) => handleDataChange(currentSection.id, catId, data)}
-        onNext={handleNext}
-        onExitZenMode={handleExitZenMode}
-        onComplete={onComplete}
-        headerContent={zenHeaderContent}
-        className={className}
-      />
-    );
-  }
+  const zenProgressPercent = zenPosition.total > 0 
+    ? Math.round((zenPosition.current / zenPosition.total) * 100) 
+    : 0;
 
-  // Free Mode - Show all sections and categories
-  const headerContent = (
+  // Unify Header Content Logic - Defined early for use in both modes
+  const renderHeaderContent = () => (
     <div className="flex items-center justify-between w-full h-full">
-      {/* Left: Branding & Navigation */}
+      {/* Left: Branding & Navigation (or Progress in Zen Mode) */}
       <div className="flex items-center gap-3">
-        {onBack && (
-          <button
-            type="button"
-            onClick={onBack}
-            className="p-2 -ml-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-full transition-all duration-200"
-            aria-label="返回首页"
-          >
-            <BackIcon className="w-5 h-5" />
-          </button>
+        {mode === 'guided' ? (
+           /* Zen Mode Progress Display */
+           <div className="flex items-center gap-4">
+             {/* Exit Button (Mobile/Desktop consistent location) */}
+             <button
+                type="button"
+                onClick={handleExitZenMode}
+                className="p-2 -ml-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-full transition-all duration-200"
+                aria-label="退出专注模式"
+              >
+                <ExitIcon className="w-5 h-5" />
+              </button>
+             
+             <div className="flex items-center gap-3">
+               <span className="text-sm font-medium text-[var(--text-secondary)] tabular-nums">
+                 {zenPosition.current} / {zenPosition.total}
+               </span>
+               <div className="hidden sm:block w-24 h-1.5 bg-[var(--bg-surface)] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${zenProgressPercent}%` }}
+                  />
+               </div>
+             </div>
+           </div>
+        ) : (
+          /* Free Mode Branding */
+          <>
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="p-2 -ml-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-full transition-all duration-200"
+                aria-label="返回首页"
+              >
+                <BackIcon className="w-5 h-5" />
+              </button>
+            )}
+            <div className="flex flex-col">
+              <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent transform translate-y-0.5">
+                身后事清单
+              </h1>
+              <span className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase">Legacy Checklist</span>
+            </div>
+          </>
         )}
-        <div className="flex flex-col">
-          <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent transform translate-y-0.5">
-            身后事清单
-          </h1>
-          <span className="text-[10px] text-[var(--text-muted)] font-medium tracking-wider uppercase">Legacy Checklist</span>
-        </div>
       </div>
       
       {/* Right: Actions & Tools */}
@@ -277,7 +284,7 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
 
         {/* Primary Actions Group */}
         <div className="flex items-center gap-2">
-          {onPreview && (
+          {mode === 'free' && onPreview && (
             <button
               type="button"
               onClick={onPreview}
@@ -290,16 +297,23 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
             </button>
           )}
           
-          <button
-            type="button"
-            onClick={handleModeToggle}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-lg transition-all duration-200"
-            title="切换到专注模式"
-            aria-label="切换到专注模式"
-          >
-            <ZenModeIcon className="w-4 h-4" />
-            <span>专注</span>
-          </button>
+          {/* Zen Mode Toggle - Only show in Free Mode or as a secondary exit option? 
+              In Zen Mode, we have the left exit button now. 
+              Let's hide this toggle in Zen Mode to avoid redundancy, or verify design.
+              Original Zen Mode had exit button on left.
+          */}
+          {mode === 'free' && (
+            <button
+              type="button"
+              onClick={handleModeToggle}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-lg transition-all duration-200"
+              title="切换到专注模式"
+              aria-label="切换到专注模式"
+            >
+              <ZenModeIcon className="w-4 h-4" />
+              <span>专注</span>
+            </button>
+          )}
         </div>
 
         {/* Settings Group (Collapsed on mobile) */}
@@ -307,7 +321,7 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
           <ThemeSwitcher />
           <LanguageSwitcher className="hidden sm:block" />
           
-          {/* Mobile Only Actions Menu Trigger could go here if needed, but keeping it simple for now */}
+          {/* Mobile Save Status */}
           <SaveButton 
             onSave={saveAll} 
             pendingCount={pendingCount} 
@@ -318,6 +332,32 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
       </div>
     </div>
   );
+
+  const sharedHeaderContent = renderHeaderContent();
+
+  // Zen Mode (Guided Mode)
+  if (mode === 'guided' && currentSection && currentCategory) {
+    // Header content for zen mode (synced with free mode)
+    // Header content for zen mode (synced with free mode)
+
+    return (
+      <ZenModeView
+        sections={structure.sections}
+        currentSection={currentSection}
+        currentCategory={currentCategory}
+        categoryData={currentCategoryData}
+        onDataChange={(catId, data) => handleDataChange(currentSection.id, catId, data)}
+        onNext={handleNext}
+        onExitZenMode={handleExitZenMode}
+         onComplete={onComplete}
+        headerContent={sharedHeaderContent}
+        className={className}
+      />
+    );
+  }
+
+  // Header content moved up
+
   
   const sidebarContent = (
     <div className="flex-1 overflow-hidden">
@@ -374,7 +414,7 @@ export const ChecklistPage: React.FC<ChecklistPageProps> = ({
   
   return (
     <Layout 
-      header={headerContent} 
+      header={sharedHeaderContent} 
       sidebar={sidebarContent} 
       footer={footerContent} 
       className={className}
@@ -526,5 +566,12 @@ const CelebrationIcon: React.FC<{ className?: string }> = ({ className }) => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
 );
+
+const ExitIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
 
 export default ChecklistPage;

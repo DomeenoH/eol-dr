@@ -229,7 +229,7 @@ describe('ChecklistPage', () => {
       const progress = createMockProgress({ mode: 'guided' });
       renderChecklistPage({}, createMockData(), progress);
       
-      const exitButton = screen.getAllByRole('button', { name: /退出专注模式/ })[0];
+      const exitButton = screen.getAllByRole('button', { name: /退出/ })[0];
       
       await act(async () => {
         fireEvent.click(exitButton);

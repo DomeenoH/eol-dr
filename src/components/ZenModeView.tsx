@@ -46,7 +46,7 @@ export interface ZenModeViewProps {
 /**
  * Calculate the current position and total categories
  */
-const calculatePosition = (
+export const calculatePosition = (
   sections: Section[],
   currentSectionId: string,
   currentCategoryId: string
@@ -137,43 +137,46 @@ export const ZenModeView: React.FC<ZenModeViewProps> = ({
       data-testid="zen-mode-view"
     >
       {/* Header - synced with free mode */}
-      <header className="flex items-center justify-between px-4 sm:px-6 py-3 bg-[var(--bg-secondary)]/80 backdrop-blur-sm border-b border-[var(--border-subtle)]">
-        {/* Left: Exit button + Progress */}
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            onClick={onExitZenMode}
-            className="inline-flex items-center gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-lg transition-colors"
-            aria-label="退出专注模式"
-          >
-            <ExitIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">退出专注模式</span>
-          </button>
-          
-          {/* Progress Indicator */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-[var(--text-secondary)]">
-              {position.current} / {position.total}
-            </span>
-            <div className="w-20 sm:w-24 h-1.5 bg-[var(--bg-surface)] rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progressPercent}%` }}
-              />
+      {headerContent ? (
+        // Use custom header if provided (Unified UI)
+        <header className="fixed top-0 left-0 right-0 h-14 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] z-30 shadow-sm px-4">
+          {headerContent}
+        </header>
+      ) : (
+        // Default Zen Header (Fallback)
+        <header className="fixed top-0 left-0 right-0 h-14 bg-[var(--bg-secondary)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] z-30 shadow-sm px-4 sm:px-6 py-3">
+          <div className="flex items-center justify-between h-full"> 
+            {/* Left: Exit button + Progress */}
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={onExitZenMode}
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-lg transition-colors"
+                aria-label="退出专注模式"
+              >
+                <ExitIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">退出专注模式</span>
+              </button>
+              
+              {/* Progress Indicator */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-[var(--text-secondary)]">
+                  {position.current} / {position.total}
+                </span>
+                <div className="w-20 sm:w-24 h-1.5 bg-[var(--bg-surface)] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${progressPercent}%` }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        {/* Right: Header content (language switcher, save status, etc.) */}
-        {headerContent && (
-          <div className="flex items-center gap-3">
-            {headerContent}
-          </div>
-        )}
-      </header>
+        </header>
+      )}
 
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center justify-start px-4 sm:px-6 py-8 sm:py-12 overflow-y-auto">
+      {/* Main Content Area - Added top padding for fixed header */}
+      <main className="flex-1 flex flex-col items-center justify-start px-4 sm:px-6 py-8 sm:py-12 mt-14 overflow-y-auto">
         <div className="w-full max-w-2xl">
           {/* Section Badge */}
           <div className="text-center mb-6">
