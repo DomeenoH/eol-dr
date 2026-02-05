@@ -19,9 +19,9 @@ jobs:
             checklist.md
       - name: ⤴ Commit updated version
         run: |
-          git config remote.origin.url 'https://${{secrets.GITHUB_TOKEN}}@github.com/potatoqualitee/froopyland-dr.git'
-          git config user.name potatoqualitee
-          git config user.email clemaire@gmail.com
+          git config remote.origin.url 'https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}'
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -am "update word"
           git push
